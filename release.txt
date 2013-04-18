@@ -72,7 +72,7 @@ are considered permanent branches, and should not be deleted, as they must be
 available for doing bugfix releases from.
 
 IMPORTANT: Public release branches must not be rebased, or the commit history
-           in any other way be rewritten.
+	   in any other way be rewritten.
 
 
 [[metadata-release-tagging]]
@@ -189,6 +189,65 @@ Metadata Release Checklist
 5. Has the http://oe-lite.org Redmine been updated with a News item according
    to the description in xref:metadata-release-announcement[Metadata Release
    Announcment]?
+
+
+Release Cherry-Picking
+----------------------
+
+This section describes how to use the `oe cherry` command for assistance in
+cherry picking commits to release branches.
+
+To use the cherry command, you need OE-lite Bakery 4.0.0 or newer, and
+OE-lite/core 3.3.0 or newer.
+
+NOTE: OE-lite/core 3.3.0 is not released yet, so you need to use OE-lite/core
+master branch or the 3.3 release branch to have access to the cherry command.
+
+The idea with the cherry command is to help you keep track of which commits
+eligible for a specific release branch.
+
+You can fx. use the cherry command to find out which commits on the master
+branch are eligible for being cherry picked to the 3.4 release branch with the
+following command:
+
+[source,sh]
+-----------
+oe cherry master 3.4
+-----------
+
+This will list all commits that are currently seen as eligible for the 3.4
+release branch.
+
+To remove commits from this list, you can run cherry in interactive mode:
+
+[source,sh]
+-----------
+oe cherry -i master 3.4
+-----------
+
+For each commit, you will be asked for the target version.  The allowed values
+are:
+
+1. A release branch, ie. X.Y.  Commits that you see as eligible for release
+   branch X.Y (and newer) should be marked with target version X.Y (fx. "3.4",
+   for release branch 3.4).
+
+2. A major release version, ie. X.  Commits that you see as eligible for a
+   (most likely yet-to-come) major release, should be marked with target
+   version X (fx. "4" for major release 4)
+
+3. The master branch.  Commits that is not eligible for any releases, and thus
+   should stay on the master branch should be marked with target version
+   "master".
+
+Any target versions you set will be stored in your local git repository, and
+will be used the next time you use the cherry command.
+
+When you have trimmed down the list, you should cherry pick the commits to the release branch you are working with.
+
+NOTE: Remember to use the "-x" argument with the `git cherry-pick` command, as
+it will help `oe cherry` in determining if a commit has already been
+cherry-picked.
 
 
 BSP Versioning
