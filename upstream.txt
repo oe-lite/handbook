@@ -1,0 +1,76 @@
+// -*- Doc -*-
+
+// This is part of the OE-lite Developers Handbook
+// Copyright (C) 2013
+//   Esben Haabendal <esben@haabendal.dk>
+
+Working with Upstream
+=====================
+
+This chapter describes how to work with the upstream OE-lite.org project.
+
+
+The +++dev@oe-lite.org+++ Mailing List
+--------------------------------------
+
+Development and coordination of the OE-lite.org project is managed on the
++++dev@oe-lite.org+++ mailing list.  To subscribe, you can either use the web
+interface (http://lists.oe-lite.org/mailman/listinfo/dev) or simply by sending
+an (empty) e-mail to dev-join@oe-lite.org .
+
+
+Submitting Changes
+------------------
+
+When making changes to OE-lite metadata layers originating from OE-lite.org,
+you should make an effort to get your changes merged to OE-lite.org.  By doing
+this, you will reduce future maintenance effort, as you don't have to take
+care with maintaining that particular change/feature anymore.
+
+
+Preparing a Patch Set
+~~~~~~~~~~~~~~~~~~~~~
+
+To create a patch set for sending to dev@oe-lite.org, you can use the
+create-pull-request script in OE-lite/core (in the scripts directory).
+
+Let's say you have a couple of commits in the local "my-branch" branch, which
+you have pushed to the "my-gitorious" remote, which is your OE-lite/base clone
+on gitorious.org.  Your "my-branch" branch is relative to the "master" branch
+of the "upstream" remote (git://oe-lite.org/oe-lite/base.git).  In this case,
+you can prepare the patch set with the following command:
+
+[source,sh]
+----
+../core/scripts/create-pull-request -u my-gitorious -b my-branch \
+	-r upstream/master -i my-branch
+----
+
+As the script also will remind you, you will then have to edit a file with the
+cover e-mail with a proper description of your patch set.
+
+
+Sending a Patch Set
+~~~~~~~~~~~~~~~~~~~
+
+First, you should make sure that git send-email is properly configured.  You
+can fx. set your email address with something like this:
+
+[source,sh]
+----
+git config --global sendemail.from your.name@gmail.com
+----
+
+You know have a patch set in something like a pull-1234 directory of your
+meta/base subdirectory.  To send that, you can use the send-pull-request
+script to send to dev@oe-lite.org:
+
+[source,sh]
+----
+../core/scripts/send-pull-request -a -p pull-1234 -t dev@oe-lite.org
+----
+
+For this to work, you need to have your host machine configured to be able to
+send e-mail, so that git send-email is able to send mails to the
++++dev@oe-lite.org+++ list.  The details for how to do this depends very much
+on your host system setup, and is not covered in this handbook.

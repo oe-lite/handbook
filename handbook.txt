@@ -1,0 +1,46 @@
+// -*- Doc -*-
+
+OE-lite Developers Handbook
+===========================
+:doctype:	book
+:author:	Esben Haabendal
+:email:		esben@haabendal.dk
+
+:toc:
+
+[preface]
+Preface
+-------
+
+The purpose of this document is to serve as a handbook for developers working
+on projects using OE-lite.
+
+License
+~~~~~~~
+
+Copyright (C)  2013  Esben Haabendal.
+
+Permission is granted to copy, distribute and/or modify this document under
+the terms of the link:http://creativecommons.org/licenses/by-sa/3.0/[Creative
+Commons Attribution-ShareAlike 3.0 Unported] as published by Creative Commons.
+
+:leveloffset: 1
+
+// Setup OE-lite development environment
+include::setup.txt[]
+
+// Setup a new OE-lite project
+include::init.txt[]
+
+// Building
+include::build.txt[]
+
+// Making a release
+include::release.txt[]
+
+// Upstream
+include::upstream.txt[]
+
+[appendix]
+
+include::cc-by-sa.txt[]

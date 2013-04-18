@@ -1,0 +1,13 @@
+// -*- Doc -*-
+
+// This is part of the OE-lite Developers Handbook
+// Copyright (C) 2013
+//   Esben Haabendal <esben@haabendal.dk>
+
+Manifest Creation
+=================
+
+This chapter describes how to setup a new OE-lite project, which in OE-lite
+terms is called creation of an OE-lite manifest.
+
+TBD...

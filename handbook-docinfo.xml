@@ -1,0 +1,28 @@
+<!--
+  article-docinfo.xml
+  Example DocBook document information file for article.txt.
+-->
+
+<authorgroup>
+  <author>
+    <firstname>Esben</firstname>
+    <surname>Haabendal</surname>
+    <affiliation>
+      <shortaffil>OE-lite Maintainer</shortaffil>
+      <orgname>OE-lite.org</orgname>
+    </affiliation>
+  </author>
+</authorgroup>
+
+<copyright>
+  <year>2013</year>
+  <holder>Esben Haabendal</holder>
+</copyright>
+
+<legalnotice>
+  <simpara>
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the Creative Commons Attribution-ShareAlike 3.0
+    Unported as published by Creative Commons.
+  </simpara>
+</legalnotice>

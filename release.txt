@@ -1,0 +1,62 @@
+// -*- Doc -*-
+
+// This is part of the OE-lite Developers Handbook
+// Copyright (C) 2013
+//   Esben Haabendal <esben@haabendal.dk>
+
+
+Release Management
+==================
+
+This chapter covers the various aspects related to making releases of OE-lite
+based projects.
+
+Some parts of this chapter is meant as a guideline and not something that you
+need to follow.
+
+
+Metadata Versioning
+-------------------
+
+For OE-lite.org metadata projects, the releases must be versioned according to
+the scheme described in this section.
+
+OE-lite.org metadata releases must follow the Semantic Versioning
+specification (see http://semver.org).  Briefly described, this means that
+version numbers are formatted as X.Y.X, with X being major number, Y being
+minor number, and Z being patch number.
+
+For releases that only contains backwards compatible bugfixes (a bugfix
+release) should be versioned with an increment to the patch number.  A bugfix
+release based on X.Y.Z would thus be X.Y.Z+1.
+
+For release that contains new, backwards compatible functionality (minor
+releases) should be versioned with an increment to the minor number.  A minor
+release based on X.Y.Z would thus be X.Y+1.0.
+
+For releases that contains any backwards incompatile changes (major releases)
+should be versioned with an increment to the major number.  A major release
+based on X.Y.Z would thus be X+1.0.0.
+
+For more details, see http://semver.org
+
+
+BSP Versioning
+--------------
+
+For OE-lite.org BSP projects, the releases must be versioned according to the
+scheme described in this section.
+
+An OE-lite.org BSP is specified by a version number, and an optional release
+name.  Notice that the version number is mandatory and must by itself specify
+the release.  The release name is optional and only meant as a possibility of
+adding a short description (or perhaps for adding a funny name...).
+
+Currently, there is no rules or guidelines for the numbering scheme.
+Suggestions and discussion related to this are welcome at dev@oe-lite.org :-)
+
+
+Branching and Tagging
+---------------------
+
+TBD...
