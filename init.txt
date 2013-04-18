@@ -10,4 +10,110 @@ Manifest Creation
 This chapter describes how to setup a new OE-lite project, which in OE-lite
 terms is called creation of an OE-lite manifest.
 
+From Scratch
+------------
+
+To create a new OE-lite manifest from scratch, all you need to do is:
+
+1. Create an empty directory.
+2. Create a conf/ sub-directory in it.
+3. Create a bakery.conf file in the conf/ sub-directory.
+4. Run `oe init`.
+
+Bakery.conf from scratch
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+The bakery.conf follows the OE-lite metadata syntax, or rather a subset of it.
+The primary purpose os to assign a value to the variable called +OESTACK+,
+which defines the OE-lite stack.
+
+An OE-lite stack is composed of a number of layers, with each layer typically
+being a seperate git repository.
+
+A small OE-lite stack could look like this:
+
+--------
+# OE-lite/base
+OESTACK += "meta/base"
+OESTACK .= ";srcuri=git://oe-lite.org/oe-lite/base.git"
+OESTACK .= ";branch=master"
+
+# OE-lite/core
+OESTACK += "meta/core"
+OESTACK .= ";srcuri=git://oe-lite.org/oe-lite/core.git"
+OESTACK .= ";branch=master"
+
+OESTACK += "lib/fetching/fetching"
+OESTACK .= ";srcuri=git://oe-lite.org/python-fetching.git"
+OESTACK .= ";pythonpath=.."
+
+OESTACK += "lib/GitPython"
+OESTACK .= ";srcuri=git://oe-lite.org/gitpython/GitPython.git"
+OESTACK .= ";pythonpath="
+
+OESTACK += "lib/urlgrabber"
+OESTACK .= ";srcuri=git://oe-lite.org/urlgrabber.git"
+OESTACK .= ";pythonpath="
+--------
+
+The example above uses the two OE-lite append assignment operators "\+=" and
+".=". The "+=" operator appends the a space and the value to the variable.
+The ".=" just appends the value to the variable.
+
+The resulting +OESTACK+ variable is thus a space separated list of layers.
+Each layer is specified by a path and a number of parameters, separated by
+";".
+
+NOTE: Add reference to the OE-lite Bakery Manual for full documentation on the
+      bakery.conf syntax here, when it is actually written...
+
+After the `oe init` command is done, the my-bsp directory should be populated
+with the following structure:
+
+----
+├── conf
+│   └── bakery.conf
+├── lib
+│   ├── fetching
+│   ├── GitPython
+│   └── urlgrabber
+└── meta
+    ├── base
+    └── core
+----
+
+and all the layers should be cloned from their upstream origin.
+
+Example (for the copy-and-paste hungry):
+
+[source,sh]
+-----------
+mkdir my-bsp
+cd my-bsp
+mkdir conf
+emacs conf/bakery.conf
+oe init
+-----------
+
+At this point, you should create the initial git commit of your brand new
+OE-lite manifest:
+
+[source,sh]
+-----------
+git add conf/bakery.conf
+git commit -s -m "Initial commit"
+-----------
+
+You are now (almost) ready to build something.  To try this, see chapter
+xref:building[Building] for how to build.
+
+Of-course, you might want to add some more metadata layers, and probably add
+your own machine and/or distro configurations and even some custom recipes,
+fx. a recipe for building a custom rootfs image.  But that is a different
+story...
+
+
+From Template
+-------------
+
 TBD...

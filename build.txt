@@ -4,6 +4,7 @@
 // Copyright (C) 2013
 //   Esben Haabendal <esben@haabendal.dk>
 
+[[building]]
 Building
 ========
 
