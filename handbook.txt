@@ -2,11 +2,14 @@
 
 OE-lite Developers Handbook
 ===========================
-:doctype:	book
 :author:	Esben Haabendal
 :email:		esben@haabendal.dk
+:doctype:	book
+:theme:		volnitsky
+:toc2:
+:icons:
+:pygments:
 
-:toc:
 
 [preface]
 Preface
@@ -26,19 +29,19 @@ Commons Attribution-ShareAlike 3.0 Unported] as published by Creative Commons.
 
 :leveloffset: 1
 
-// Setup OE-lite development environment
+// Host Setup
 include::setup.txt[]
 
-// Setup a new OE-lite project
+// Manifest Creation
 include::init.txt[]
 
 // Building
 include::build.txt[]
 
-// Making a release
+// Release Management
 include::release.txt[]
 
-// Upstream
+// Working with Upstream
 include::upstream.txt[]
 
 [appendix]

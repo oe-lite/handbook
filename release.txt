@@ -113,6 +113,7 @@ IMPORTANT: Release tags must not be changed.
 NOTE: The release and unrelease commits does not need a Signed-off-by line.
 
 
+[[metadata-release-tarballs]]
 Metadata Release Tarballs
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -133,6 +134,7 @@ an email to esben@haabendal.dk (with cc to dev@oe-lite.org) requesting copies
 to be placed on the oe-lite.org server.
 
 
+[[metadata-release-announcement]]
 Metadata Release Announcement
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

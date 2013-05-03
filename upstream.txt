@@ -10,8 +10,8 @@ Working with Upstream
 This chapter describes how to work with the upstream OE-lite.org project.
 
 
-The +++dev@oe-lite.org+++ Mailing List
---------------------------------------
+Mailing Lists
+-------------
 
 Development and coordination of the OE-lite.org project is managed on the
 +++dev@oe-lite.org+++ mailing list.  To subscribe, you can either use the web
