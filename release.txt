@@ -155,11 +155,11 @@ should be called like this:
 
 [source,sh]
 -----------
-release-mail.py v3.4.0 v3.4.0
+release-mail.py v3.3.0 v3.4.0
 -----------
 
-With the first argument specifying the release you are announcing, and the
-second argument specifying the release that it is based on.
+With the first argument specifying the previous release, and the second
+argument specifying the release you are announcing.
 
 Metadata Relase Redmine Announcement
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
