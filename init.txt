@@ -105,7 +105,7 @@ git commit -s -m "Initial commit"
 -----------
 
 You are now (almost) ready to build something.  To try this, see chapter
-xref:building[Building] for how to build.
+xref:_building[Building] for how to build.
 
 Of-course, you might want to add some more metadata layers, and probably add
 your own machine and/or distro configurations and even some custom recipes,
