@@ -206,3 +206,27 @@ coreutils sed git-core cvs subversion mercurial quilt gawk texinfo \
 automake autoconf curl openjade groff make gcc-c++ gcc binutils bc \
 unzip gtk-doc docbook-utils xmlto glib2-devel intltool glibc-static
 -----------
+
+Goodbye dash
+------------
+
+On some systems (fx. Ubuntu Linux), `/bin/sh` is a symlink to dash, which not
+all software packages are fully compatible with.  To work with OE-lite, you therefore have to make sure that `/bin/sh` is actually `/bin/bash`.
+
+You can do this the brute force way
+
+[source,sh]
+----
+sudo ln -sf bash /bin/sh
+----
+
+Or on Ubuntu Linux, you can do this more nicely with
+
+[source,sh]
+----
+sudo dpkg-reconfigure dash
+----
+
+and answer "No" to the "Use dash as the default system shell (/bin/sh)?"
+question.
+
