@@ -14,9 +14,81 @@ Mailing Lists
 -------------
 
 Development and coordination of the OE-lite.org project is managed on the
-+++dev@oe-lite.org+++ mailing list.  To subscribe, you can either use the web
-interface (http://lists.oe-lite.org/mailman/listinfo/dev) or simply by sending
-an (empty) e-mail to dev-join@oe-lite.org .
++++dev@oe-lite.org+++ mailing list.
+
+Use this for getting in contact with OE-lite.org developers and discussion or
+coordination of OE-lite development.
+
+Subscribing
+~~~~~~~~~~~
+
+To subscribe, you can either use the web interface or the email interface.
+
+.Using the web interface
+
+. Go to the list information page
+  (http://lists.oe-lite.org/mailman/listinfo/dev).
+
+. Look for the section marked "Subscribing to dev" and fill in the boxes. You
+  can fill in the following:
+
+  * You must enter your email address.
+
+  * You may choose to supply your real name.
+
+  * You may choose a password. If you do not choose one, Mailman will generate
+    one for you.  WARNING: Do NOT use a valuable password, since this password
+    may be mailed to you in plain text.
+
+  * If the list supports more than one language, you may be able to choose
+    your preferred language.  NOTE: This setting does not affect posts to the
+    list, only pre-prepared Mailman texts such as your member options page.
+
+. Press the subscribe button. A new page should appear telling you that your
+  request has been sent.
+
+.Using the email interface
+
+. Open a mail program which sends mail from the address you want to subscribe.
+
+. Send a mail to dev-join@oe-lite.org. The subject and body of the message
+  will be ignored, so it doesn't matter what you put there.
+
+You may receive an email message asking for confirmation that you really want
+to be subscribed to the list. This is to prevent anyone from subscribing you
+to lists without your permission. Follow the instructions given in the message
+to confirm your wish to be subscribed.
+
+Once this is done, you will receive another message welcoming you to the
+list. This message contains some useful information including your list
+password and some quick links for changing your options, so you may want to
+save it for later reference.
+
+Unsubscribing
+~~~~~~~~~~~~~
+
+If you want to leave the list, there are two common ways you can unsubscribe.
+
+.Using the web interface
+
+. Go to the list information page
+  (http://lists.oe-lite.org/mailman/listinfo/dev).
+
+. Look for the section marked "dev subscribers" (near the bottom of the page).
+
+. There should be a button marked "Unsubscribe or Edit Options." Enter your
+  email address in the box beside this button and press the button.
+
+. You should be brought to a new page which has an "Unsubscribe" button. Press
+  it to unsubscribe and follow the instructions given.
+
+.Using the email interface
+
+. Open a mail program which sends mail from the address you want to
+  unsubscribe.
+
+. Send a mail to dev-leave@oe-lite.org.  The subject and body of this message
+  will be ignored, so it doesn't matter what you put there.
 
 
 Submitting Changes
@@ -27,6 +99,26 @@ you should make an effort to get your changes merged to OE-lite.org.  By doing
 this, you will reduce future maintenance effort, as you don't have to take
 care with maintaining that particular change/feature anymore.
 
+Pull Requests
+~~~~~~~~~~~~~
+
+The development model used for the OE-lite.org project is a pull model.  Each
+repository on OE-lite.org has a single developer with push access, ie. the
+maintainer.  Only the maintainer is allowed to push changes to the respective
+repository.
+
+To get changes into an OE-lite.org repository where you are not the
+maintainer, you have to make a pull request.  A pull request is an email, or
+most often a series of emails, to +++dev@oe-lite.org+++ containing the entire
+change set that is proposed together with a description of the change,
+additional information, and everything in a form so that it can easily be
+integrated with the git SCM tool.
+
+The pull request can then be reviewed by other OE-lite.org developers,
+including the maintainer, and everyone has the possibility to make comments,
+and propose improvements to the change set.  The maintainer might then decide
+to pull in the pull request as it is, or ask the submitter to rework the
+change set according and resubmit it when done, where the process restarts.
 
 Preparing a Patch Set
 ~~~~~~~~~~~~~~~~~~~~~
@@ -34,7 +126,7 @@ Preparing a Patch Set
 To create a patch set for sending to dev@oe-lite.org, you can use the
 create-pull-request script in OE-lite/core (in the scripts directory).
 
-Let's say you have a couple of commits in the local "my-branch" branch, which
+Let's say you have a couple of commits in your local "my-branch" branch, which
 you have pushed to the "my-gitorious" remote, which is your OE-lite/base clone
 on gitorious.org.  Your "my-branch" branch is relative to the "master" branch
 of the "upstream" remote (git://oe-lite.org/oe-lite/base.git).  In this case,
