@@ -38,6 +38,9 @@ include::init.txt[]
 // Building
 include::build.txt[]
 
+// Source Mirrors
+include::mirror.txt[]
+
 // Release Management
 include::release.txt[]
 

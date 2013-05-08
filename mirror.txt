@@ -1,0 +1,140 @@
+// -*- Doc -*-
+
+// This is part of the OE-lite Developers Handbook
+// Copyright (C) 2013
+//   Esben Haabendal <esben@haabendal.dk>
+
+Source Mirrors
+==============
+
+OE-lite provides means for setting up and maintaining mirrors of external
+sources used in builds.
+
+This is useful for ensuring that OE-lite builds are not affected by 3rd party
+sources being removed from their original location on the Internet.  It can
+also be used for redirecting all fetches from the Internet to a local server
+(or filesystem), making OE-lite work in closed networks or without any network
+connection at all.
+
+
+Prerequisites
+-------------
+
+To setup an OE-lite source mirror, you must use OE-lite/core 3.2.0 or newer.
+
+The filesystem path to the source mirror must be specified, fx. in your
++local.conf+ file.  Fx.
+
+----
+MIRRORDIR = "/local/mirror"
+----
+
+
+The mirror class
+----------------
+
+An OE-lite source mirror is both created and maintained with the help of the
+OE-lite +mirror+ task.  The +mirror+ task will add any sources required by the
+recipe which is not already present in the mirror, and will fail if a file
+conflict occurs.
+
+There is also an +mirrorall+ task, which recursively causes the +mirror+ task
+to be run for all recipes that the recipe depends on (both build and run-time
+dependencies).
+
+The +mirror+ and +mirrorall+ tasks are implemented in the
++classes/mirror.oeclass+ file in OE-lite/core.
+
+The +MIRRORDIR+ directory will be created if it does not exist.
+
+
+Creating and maintaining a source mirror
+----------------------------------------
+
+As the source mirror is maintained with the help of the +mirror+ and
++mirrorall+ tasks, you need to configure your +local.conf+ for the +MACHINE+
+and +SDK+ configuration options required for your mirror.
+
+For each configuration, you must run the +mirrorall+ task on the required
+top-level recipes (or world or universe, if you want really everything in your
+mirror).
+
+Fx.
+
+[source,sh]
+----
+oe bake -t mirrorall kernel my-rootfs my-sdk
+----
+
+or
+
+[source,sh]
+----
+oe bake -t mirrorall universe
+----
+
+After having run this on all the required configurations, your source mirror
+in +MIRRORDIR+ will be up-to-date with all sources required for the current
+OE-lite checkout and the configurations used.
+
+
+Synchronizing mirror directory to remote server
+-----------------------------------------------
+
+The mirror will be created (and maintained) in a directory on the machine
+running OE-lite.  To maintain a mirror on a remote server, you could use the
+rsync command (requires ssh login access to server, and rsync command on the
+server):
+
+The following command will synchronize the /local/mirror directory to the
+/mirror directory on the server (myserver):
+
+[source,sh]
+----
+rsync -av /local/mirror/ myserver:/mirror/
+----
+
+Build from source mirror
+------------------------
+
+To use the OE-lite source mirror, the +MIRRORS+ and +PREMIRRORS+ variables
+must be modified.
+
+If you only want to fall-back to using the source mirror, and thus always try
+to fetch from the original source first, you should change the +MIRRORS+
+variable to something like
+
+----
+MIRRORS = """
+http://.*/ http://myserver/mirror/${INGREDIENTS_SUBDIR}/
+ftp://.*/  http://myserver/mirror/${INGREDIENTS_SUBDIR}/
+git://.*/  http://myserver/mirror/${INGREDIENTS_SUBDIR}/git//
+svn://.*/  http://myserver/mirror/${INGREDIENTS_SUBDIR}/svn//
+"""
+----
+
+If you want to use the source mirror first, and only fall-back to trying the
+orignial source in case fetching from the source mirror fails, you should
+change the +PREMIRRORS+ variable to something like
+
+----
+PREMIRRORS = """
+http://.*/ http://myserver/mirror/${INGREDIENTS_SUBDIR}/
+ftp://.*/  http://myserver/mirror/${INGREDIENTS_SUBDIR}/
+git://.*/  http://myserver/mirror/${INGREDIENTS_SUBDIR}/git//
+svn://.*/  http://myserver/mirror/${INGREDIENTS_SUBDIR}/svn//
+"""
+----
+
+Both of the configurations above assumes that your "myserver" is running an
+HTTP server, and is hosting the +/mirror+ directory on the
+http://myserver/mirror URL.
+
+If you only want to allow fetching from the source mirror, and thus forbid
+fetching from any other remote server, you can use the +URL_WHITELIST+
+variable.  In addition to the +MIRRORS+ and/or +PREMIRRORS+ variables, you
+could add something like
+
+----
+URL_WHITELIST = "http://myserver/mirror"
+----
