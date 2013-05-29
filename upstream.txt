@@ -91,6 +91,69 @@ If you want to leave the list, there are two common ways you can unsubscribe.
   will be ignored, so it doesn't matter what you put there.
 
 
+LogMessagePolicy
+----------------
+
+The following guidelines should be followed when writing log messages for
+commits to be included in OE-lite.org repositories:
+
+* The first line should be a short description, prefixed what is being changed.
+
+** The prefix should be one of
+
+*** Name of subdir containing recipes, fx. 'linux', for changes to recipes
+    within that directory.
+
+*** Name of recipe, fx. 'linux-yocto', for changes to that specific recipe.
+
+*** Name of OE-lite class (.bbclass file) prefixed with 'class',
+    fx. 'class/cross', for changes to that specific class.
+
+*** Name of distro configuration file prefixed with 'distro/',
+    fx. 'distro/base', for changes to that distro configuration.
+
+*** Name of machine configuraton file prefixed with 'machine/',
+    fx. 'machine/beagleboard', for changes to that machine configuration.
+
+*** Name of subdir containing Python library code prefixed with 'lib/',
+    fx. 'lib/oelite', for changes to Python files in that dir.
+
+*** Name of configuration file (in conf/ directory) prefixed with 'conf/',
+    fx. 'conf/package', for changes to that file (package.conf).
+
+** The description should be very short (a few words), summarising the change.
+
+** The prefix and description is separated by a space followed by a colon
+   (ie. ': ').
+
+* The first line should be followed by an empty line
+
+* Additional lines, may follow describing more details of the change.
+
+* The details if feasible, should be structured as a list, with each item
+  marked with a start '*',
+
+* Signed-off-by (SOB) lines are currently not required in OE-lite.
+
+* Lines must not be longer than 75 characters.
+
+The first line of commit log messages are very important, as it in some cases
+will be the the only description of the change being presented, fx.  in
+subject lines of mails being created with git-format-patch.
+
+These guidelines should be followed, but may be combined with common sense for
+doing things different when it makes sense.
+
+.Example: Adding a recipe named dhcp3
+----
+dhcp3: New recipe, for ISC DHCP version 3
+
+In the newer versions of dhcp (4.X), bind is included statically linked in
+dhcp, making some dhcp files unneccessary big.  Therefore, an older version
+of dhcp is often desired.
+----
+
+
 Submitting Changes
 ------------------
 
