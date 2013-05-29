@@ -91,8 +91,8 @@ If you want to leave the list, there are two common ways you can unsubscribe.
   will be ignored, so it doesn't matter what you put there.
 
 
-LogMessagePolicy
-----------------
+Commit Message Guidelines
+-------------------------
 
 The following guidelines should be followed when writing log messages for
 commits to be included in OE-lite.org repositories:
