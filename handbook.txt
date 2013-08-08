@@ -49,4 +49,6 @@ include::upstream.txt[]
 
 [appendix]
 
+include::terms.txt[]
+
 include::cc-by-sa.txt[]
