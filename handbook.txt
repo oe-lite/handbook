@@ -32,7 +32,7 @@ Commons Attribution-ShareAlike 3.0 Unported] as published by Creative Commons.
 // Host Setup
 include::setup.txt[]
 
-// Manifest Creation
+// Project Setup
 include::init.txt[]
 
 // Building
