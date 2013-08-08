@@ -35,6 +35,9 @@ include::setup.txt[]
 // Project Setup
 include::init.txt[]
 
+// Cloning
+include::clone.txt[]
+
 // Building
 include::build.txt[]
 
