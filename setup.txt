@@ -179,7 +179,7 @@ python-sqlite2 python-devel fakeroot libstdc++-static glibc-static \
 gettext-devel ncurses-devel libtool texinfo flex bison coreutils \
 sed git-core cvs subversion mercurial quilt gawk texinfo automake \
 autoconf curl texi2html openjade groff make gcc-c++ gcc binutils bc \
-unzip lzma gtk-doc docbook-utils xml2 xmlto help2man glib2-devel
+unzip lzma gtk-doc docbook-utils xml2 xmlto help2man glib2-devel gperf
 -----------
 
 Install additional development tools in Debian GNU/Linux, Ubuntu Linux and so
@@ -193,7 +193,7 @@ coreutils sed git-core cvs subversion mercurial quilt gawk texinfo \
 automake autoconf autopoint libtool curl texi2html diffstat \
 openjade groff mtd-utils build-essential make gcc g++ binutils \
 bison flex bc ncurses-dev unzip lzma gtk-doc-tools docbook-utils \
-libxml2-utils xmlto help2man libglib2.0-dev lzop
+libxml2-utils xmlto help2man libglib2.0-dev lzop gperf
 -----------
 
 Install additional development tools in RHEL 6.2, something like:
@@ -204,7 +204,8 @@ sudo yum install python-magic python-ply python-pycurl python-devel \
 fakeroot gettext-devel ncurses-devel libtool texinfo flex bison \
 coreutils sed git-core cvs subversion mercurial quilt gawk texinfo \
 automake autoconf curl openjade groff make gcc-c++ gcc binutils bc \
-unzip gtk-doc docbook-utils xmlto glib2-devel intltool glibc-static
+unzip gtk-doc docbook-utils xmlto glib2-devel intltool glibc-static \
+gperf
 -----------
 
 Goodbye dash
