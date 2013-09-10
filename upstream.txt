@@ -242,12 +242,12 @@ submit changes to the project.
 Those special cases that applies cleanly could be, e.g. new recipes,
 small changes to split tasks, package tasks and so on.
 
-Let say you made a new recipe and tested it and just committed it
-locally, simply do:
+Let say you made a new recipe for the core repository, tested it and just
+committed it locally, simply do:
 
 [source,sh]
 ----
-git format-patch -1 
+git format-patch -1 --subject-prefix=core
 ----
 
 "-1" may be replaced with a specific commitid or "-2" if you want that
@@ -255,8 +255,11 @@ last two commits in a patchfile.
 
 [source,sh]
 ----
-git format-patch -2 mypatches/
+git format-patch -2 mypatches/ --subject-prefix=core
 ----
+
+The subject prefix is needed for now to make it visible what repository
+the patch applies to.
 
 Before sending single patch files upstream make sure that you have git
 send-email configure as described above.
@@ -279,5 +282,3 @@ or just one simple patch:
 ----
 git send-email 0001-<commit log name>.patch
 ----
-
-
