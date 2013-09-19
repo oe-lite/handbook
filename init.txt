@@ -137,7 +137,7 @@ OE-lite/core layer.
 2. When cloning the OE-lite repository, you depend on both the server hosting
 the manifest repository and the oe-lite.org server.
 
-See also appendix xref:_oe-lite_terminology[OE-lite Terminology] for
+See also appendix xref:_oe_lite_terminology[OE-lite Terminology] for
 definition of internal layer.
 
 Internal Layers
@@ -146,7 +146,7 @@ Internal Layers
 For each layer you have added to the OE-lite stack as an external layer, you
 should consider to convert it to be an internal layer to address the problems
 with external layers described above.  See appendix
-xref:_oe-lite_terminology[OE-lite Terminology] for definition of internal
+xref:_oe_lite_terminology[OE-lite Terminology] for definition of internal
 layer.
 
 By converting all external layers to internal layers, and thus having a
