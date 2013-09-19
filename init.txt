@@ -8,25 +8,26 @@ Project Setup
 =============
 
 This chapter describes how to setup a new OE-lite project, ie. the creation of
-a new OE-lite manifest and setup of an OE-lite repository for it.
-
+a new OE-lite xref:_oe_lite_terminology[manifest] and setup of an OE-lite
+xref:_oe_lite_terminology[repository] for it.
 
 From Scratch
 ------------
 
-To create a new OE-lite manifest from scratch, all you need to do is:
+To create a new OE-lite xref:_oe_lite_terminology[manifest] from scratch, all
+ you need to do is:
 
 1. Create an empty directory.
 2. Create a conf/bakery.conf file.
 3. Run `oe init`.
-4. Convert layers to be of internal layer type.
+4. Convert xref:_oe_lite_terminology[layers] to be of internal layer type.
 
 Bakery.conf from scratch
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 The bakery.conf follows the OE-lite metadata syntax, or rather a subset of it.
 The primary purpose os to assign a value to the variable called +OESTACK+,
-which defines the OE-lite stack.
+which defines the OE-lite xref:_oe_lite_terminology[stack].
 
 An OE-lite stack is composed of a number of OE-lite layers, with each layer
 typically being a seperate git repository.
