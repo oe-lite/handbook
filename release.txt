@@ -202,9 +202,6 @@ cherry picking commits to release branches.
 To use the cherry command, you need OE-lite Bakery 4.0.0 or newer, and
 OE-lite/core 3.3.0 or newer.
 
-NOTE: OE-lite/core 3.3.0 is not released yet, so you need to use OE-lite/core
-master branch or the 3.3 release branch to have access to the cherry command.
-
 The idea with the cherry command is to help you keep track of which commits
 eligible for a specific release branch.
 
