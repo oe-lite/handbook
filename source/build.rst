@@ -2,6 +2,8 @@
 .. // Copyright (C) 2013
 .. //   Esben Haabendal <esben@haabendal.dk>
 
+.. _building:
+
 ********
 Building
 ********

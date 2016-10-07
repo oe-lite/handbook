@@ -104,8 +104,8 @@ new OE-lite manifest:
     git add conf/bakery.conf
     git commit -s -m "Initial commit"
 
-You are now (almost) ready to build something. To try this, see chapter
-`Building <#_building>`__ `??? <#_building>`__ for how to build.
+You are now (almost) ready to build something. To try this, see
+chapter `building` for how to build.
 
 Of-course, you might want to add some more metadata layers, and probably
 add your own machine and/or distro configurations and even some custom
@@ -136,17 +136,15 @@ few drawbacks.
 2. When cloning the OE-lite repository, you depend on both the server
    hosting the manifest repository and the oe-lite.org server.
 
-See also appendix `OE-lite Terminology <#_oe_lite_terminology>`__
-`??? <#_oe_lite_terminology>`__ for definition of internal layer.
+See also appendix `terminology` for definition of internal layer.
 
 Internal Layers
 ---------------
 
-For each layer you have added to the OE-lite stack as an external layer,
-you should consider to convert it to be an internal layer to address the
-problems with external layers described above. See appendix `OE-lite
-Terminology <#_oe_lite_terminology>`__ `??? <#_oe_lite_terminology>`__
-for definition of internal layer.
+For each layer you have added to the OE-lite stack as an external
+layer, you should consider to convert it to be an internal layer to
+address the problems with external layers described above. See
+appendix `terminology` for definition of internal layer.
 
 By converting all external layers to internal layers, and thus having a
 manifest consisting of only embedded and internal layers, you will have
