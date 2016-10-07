@@ -2,9 +2,8 @@
 OE-lite Developers Handbook
 ###########################
 
-Contents:
-
 .. toctree::
+   :caption: Contents
    :maxdepth: 2
 
    setup
