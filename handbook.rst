@@ -35,28 +35,28 @@ the terms of the link: `Creative Commons Attribution-ShareAlike 3.0 Unported <ht
 .. include:: ../setup.rst
 
 .. // Project Setup
-.. // include::init.txt[]
+.. include:: ../init.rst
 
 .. // Cloning
-.. // include::clone.txt[]
+.. include:: ../clone.rst
 
 .. // Building
-.. // include::build.txt[]
+.. include:: ../build.rst
 
 .. // Source Mirrors
-.. // include::mirror.txt[]
+.. include:: ../mirror.rst
 
 .. // Release Management
-.. // include::release.txt[]
+.. include:: ../release.rst
 
 .. // Working with Upstream
-.. // include::upstream.txt[]
+.. include:: ../upstream.rst
 
 .. // [appendix]
 
-.. // include::terms.txt[]
+.. include:: ../terms.rst
 
-.. // include::cc-by-sa.txt[]
+.. include:: ../cc-by-sa.rst
 
 Indices and tables
 ==================
