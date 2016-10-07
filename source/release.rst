@@ -43,6 +43,8 @@ major release based on X.Y.Z would thus be X+1.0.0.
 
 For more details, see http://semver.org
 
+.. _metadata-release-branching:
+
 Metadata Release Branching
 --------------------------
 
@@ -70,6 +72,8 @@ deleted, as they must be available for doing bugfix releases from.
 
     Public release branches must not be rebased, or the commit history
     in any other way be rewritten.
+
+.. _metadata-release-tagging:
 
 Metadata Release Tagging
 ------------------------
@@ -111,6 +115,8 @@ OE-lite/core).
     The release and unrelease commits does not need a Signed-off-by
     line.
 
+.. _metadata-release-tarballs:
+
 Metadata Release Tarballs
 -------------------------
 
@@ -128,6 +134,8 @@ To create release tarballs, use something like the following:
 To put the tarballs on oe-lite.org, stuff them somewhere on the net and
 send an email to esben@haabendal.dk (with cc to dev@oe-lite.org)
 requesting copies to be placed on the oe-lite.org server.
+
+.. _metadata-release-announcement:
 
 Metadata Release Announcement
 -----------------------------
@@ -169,28 +177,20 @@ Metadata Release Checklist
 --------------------------
 
 1. Is the release created from a release branch according to the
-   description in section `Metadata Release
-   Branching <#metadata-release-branching>`__
-   `section\_title <#metadata-release-branching>`__?
+   description in section `metadata-release-branching`?
 
 2. Is the release properly tagged according to the description in
-   section `Metadata Release Tagging <#metadata-release-tagging>`__
-   `section\_title <#metadata-release-tagging>`__?
+   section `metadata-release-tagging`?
 
 3. Has tar-balls been created and uploaded to oe-lite.org according to
-   the description in section `Metadata Release
-   Tarballs <#metadata-release-tarballs>`__
-   `section\_title <#metadata-release-tarballs>`__?
+   the description in section `metadata-release-tarballs`?
 
 4. Has a release announcement mail been sent to the dev@oe-lite.org
-   mailinglist according to the description in `Metadata Release
-   Announcment <#metadata-release-announcement>`__
-   `section\_title <#metadata-release-announcement>`__?
+   mailinglist according to the description in
+   `metadata-release-announcement`?
 
 5. Has the http://oe-lite.org Redmine been updated with a News item
-   according to the description in `Metadata Release
-   Announcment <#metadata-release-announcement>`__
-   `section\_title <#metadata-release-announcement>`__?
+   according to the description in `metadata-release-announcement`?
 
 Release Cherry-Picking
 ======================
