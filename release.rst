@@ -1,3 +1,11 @@
+.. // This is part of the OE-lite Developers Handbook
+.. // Copyright (C) 2013
+.. //   Esben Haabendal <esben@haabendal.dk>
+
+******************
+Release Management
+******************
+
 This chapter covers the various aspects related to making releases of
 OE-lite based projects.
 

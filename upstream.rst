@@ -1,3 +1,11 @@
+.. // This is part of the OE-lite Developers Handbook
+.. // Copyright (C) 2013
+.. //   Esben Haabendal <esben@haabendal.dk>
+
+*********************
+Working with Upstream
+*********************
+
 This chapter describes how to work with the upstream OE-lite.org
 project.
 

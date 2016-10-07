@@ -1,3 +1,11 @@
+.. // This is part of the OE-lite Developers Handbook
+.. // Copyright (C) 2013
+.. //   Esben Haabendal <esben@haabendal.dk>
+
+*************
+Project Setup
+*************
+
 This chapter describes how to setup a new OE-lite project, ie. the
 creation of a new OE-lite `manifest <#_oe_lite_terminology>`__
 `??? <#_oe_lite_terminology>`__ and setup of an OE-lite

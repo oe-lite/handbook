@@ -1,3 +1,11 @@
+.. // This is part of the OE-lite Developers Handbook
+.. // Copyright (C) 2013
+.. //   Esben Haabendal <esben@haabendal.dk>
+
+**************
+Source Mirrors
+**************
+
 OE-lite provides means for setting up and maintaining mirrors of
 external sources used in builds.
 

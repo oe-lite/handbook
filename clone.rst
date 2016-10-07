@@ -1,3 +1,11 @@
+.. // This is part of the OE-lite Developers Handbook
+.. // Copyright (C) 2013
+.. //   Esben Haabendal <esben@haabendal.dk>
+
+*******
+Cloning
+*******
+
 This chapter describes how to clone an existing OE-lite repository.
 
 To create a local clone of an OE-lite repository for development and/or

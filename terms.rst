@@ -1,3 +1,11 @@
+.. // This is part of the OE-lite Developers Handbook
+.. // Copyright (C) 2013
+.. //   Esben Haabendal <esben@haabendal.dk>
+
+*******************
+OE-lite Terminology
+*******************
+
 OE-lite manifest
     A git repository used as top-level for the project, containing as a
     minimum the definition of OE-lite stack used in the project (the

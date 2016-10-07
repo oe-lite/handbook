@@ -1,3 +1,11 @@
+.. // This is part of the OE-lite Developers Handbook
+.. // Copyright (C) 2013
+.. //   Esben Haabendal <esben@haabendal.dk>
+
+**********
+Host Setup
+**********
+
 This chapter describes how to setup a host machine (your development PC,
 server or whatever) for working with OE-lite development.
 

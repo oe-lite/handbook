@@ -1,3 +1,7 @@
+***********************************
+Attribution-ShareAlike 3.0 Unported
+***********************************
+
     **Note**
 
     CREATIVE COMMONS CORPORATION IS NOT A LAW FIRM AND DOES NOT PROVIDE

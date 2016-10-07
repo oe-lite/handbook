@@ -1,3 +1,11 @@
+.. // This is part of the OE-lite Developers Handbook
+.. // Copyright (C) 2013
+.. //   Esben Haabendal <esben@haabendal.dk>
+
+********
+Building
+********
+
 This chapter describes how to build something with OE-lite, fx. how to
 build a specific OE-lite recipe, a Linux kernel image, a JFFS2 root
 filesystem image, an SDK toolchain image, and so on.
