@@ -1,0 +1,273 @@
+This chapter describes how to work with the upstream OE-lite.org
+project.
+
+Mailing Lists
+=============
+
+Development and coordination of the OE-lite.org project is managed on
+the dev@oe-lite.org mailing list.
+
+Use this for getting in contact with OE-lite.org developers and
+discussion or coordination of OE-lite development.
+
+Subscribing
+-----------
+
+To subscribe, you can either use the web interface or the email
+interface.
+
+1. Go to the list information page
+   (http://lists.oe-lite.org/mailman/listinfo/dev).
+
+2. Look for the section marked "Subscribing to dev" and fill in the
+   boxes. You can fill in the following:
+
+   -  You must enter your email address.
+
+   -  You may choose to supply your real name.
+
+   -  You may choose a password. If you do not choose one, Mailman will
+      generate one for you. WARNING: Do NOT use a valuable password,
+      since this password may be mailed to you in plain text.
+
+   -  If the list supports more than one language, you may be able to
+      choose your preferred language. NOTE: This setting does not affect
+      posts to the list, only pre-prepared Mailman texts such as your
+      member options page.
+
+3. Press the subscribe button. A new page should appear telling you that
+   your request has been sent.
+
+1. Open a mail program which sends mail from the address you want to
+   subscribe.
+
+2. Send a mail to dev-join@oe-lite.org. The subject and body of the
+   message will be ignored, so it doesn’t matter what you put there.
+
+You may receive an email message asking for confirmation that you really
+want to be subscribed to the list. This is to prevent anyone from
+subscribing you to lists without your permission. Follow the
+instructions given in the message to confirm your wish to be subscribed.
+
+Once this is done, you will receive another message welcoming you to the
+list. This message contains some useful information including your list
+password and some quick links for changing your options, so you may want
+to save it for later reference.
+
+Unsubscribing
+-------------
+
+If you want to leave the list, there are two common ways you can
+unsubscribe.
+
+1. Go to the list information page
+   (http://lists.oe-lite.org/mailman/listinfo/dev).
+
+2. Look for the section marked "dev subscribers" (near the bottom of the
+   page).
+
+3. There should be a button marked "Unsubscribe or Edit Options." Enter
+   your email address in the box beside this button and press the
+   button.
+
+4. You should be brought to a new page which has an "Unsubscribe"
+   button. Press it to unsubscribe and follow the instructions given.
+
+1. Open a mail program which sends mail from the address you want to
+   unsubscribe.
+
+2. Send a mail to dev-leave@oe-lite.org. The subject and body of this
+   message will be ignored, so it doesn’t matter what you put there.
+
+Commit Message Guidelines
+=========================
+
+The following guidelines should be followed when writing log messages
+for commits to be included in OE-lite.org repositories:
+
+-  The first line should be a short description, prefixed what is being
+   changed.
+
+   -  The prefix should be one of
+
+      -  Name of subdir containing recipes, fx. *linux*, for changes to
+         recipes within that directory.
+
+      -  Name of recipe, fx. *linux-yocto*, for changes to that specific
+         recipe.
+
+      -  Name of OE-lite class (.bbclass file) prefixed with *class*,
+         fx. *class/cross*, for changes to that specific class.
+
+      -  Name of distro configuration file prefixed with *distro/*, fx.
+         *distro/base*, for changes to that distro configuration.
+
+      -  Name of machine configuraton file prefixed with *machine/*, fx.
+         *machine/beagleboard*, for changes to that machine
+         configuration.
+
+      -  Name of subdir containing Python library code prefixed with
+         *lib/*, fx. *lib/oelite*, for changes to Python files in that
+         dir.
+
+      -  Name of configuration file (in conf/ directory) prefixed with
+         *conf/*, fx. *conf/package*, for changes to that file
+         (package.conf).
+
+   -  The description should be very short (a few words), summarising
+      the change.
+
+   -  The prefix and description is separated by a space followed by a
+      colon (ie. ': ').
+
+-  The first line should be followed by an empty line
+
+-  Additional lines, may follow describing more details of the change.
+
+-  The details if feasible, should be structured as a list, with each
+   item marked with a start *\**,
+
+-  Signed-off-by (SOB) lines are currently not required in OE-lite.
+
+-  Lines must not be longer than 75 characters.
+
+The first line of commit log messages are very important, as it in some
+cases will be the the only description of the change being presented,
+fx. in subject lines of mails being created with git-format-patch.
+
+These guidelines should be followed, but may be combined with common
+sense for doing things different when it makes sense.
+
+**Example: Adding a recipe named dhcp3.**
+
+::
+
+    dhcp3: New recipe, for ISC DHCP version 3
+
+    In the newer versions of dhcp (4.X), bind is included statically linked in
+    dhcp, making some dhcp files unneccessary big.  Therefore, an older version
+    of dhcp is often desired.
+
+Submitting Changes
+==================
+
+When making changes to OE-lite metadata layers originating from
+OE-lite.org, you should make an effort to get your changes merged to
+OE-lite.org. By doing this, you will reduce future maintenance effort,
+as you don’t have to take care with maintaining that particular
+change/feature anymore.
+
+Pull Requests
+-------------
+
+The development model used for the OE-lite.org project is a pull model.
+Each repository on OE-lite.org has a single developer with push access,
+ie. the maintainer. Only the maintainer is allowed to push changes to
+the respective repository.
+
+To get changes into an OE-lite.org repository where you are not the
+maintainer, you have to make a pull request. A pull request is an email,
+or most often a series of emails, to dev@oe-lite.org containing the
+entire change set that is proposed together with a description of the
+change, additional information, and everything in a form so that it can
+easily be integrated with the git SCM tool.
+
+The pull request can then be reviewed by other OE-lite.org developers,
+including the maintainer, and everyone has the possibility to make
+comments, and propose improvements to the change set. The maintainer
+might then decide to pull in the pull request as it is, or ask the
+submitter to rework the change set according and resubmit it when done,
+where the process restarts.
+
+Preparing a Patch Set
+---------------------
+
+To create a patch set for sending to dev@oe-lite.org, you can use the
+create-pull-request script in OE-lite/core (in the scripts directory).
+
+Let’s say you have a couple of commits in your local "my-branch" branch,
+which you have pushed to the "my-gitorious" remote, which is your
+OE-lite/base clone on gitorious.org. Your "my-branch" branch is relative
+to the "master" branch of the "upstream" remote
+(git://oe-lite.org/oe-lite/base.git). In this case, you can prepare the
+patch set with the following command:
+
+.. code:: sh
+
+    ../core/scripts/create-pull-request -u my-gitorious -b my-branch \
+            -r upstream/master -i my-branch
+
+As the script also will remind you, you will then have to edit a file
+with the cover e-mail with a proper description of your patch set.
+
+Sending a Patch Set
+-------------------
+
+First, you should make sure that git send-email is properly configured.
+You can fx. set your email address with something like this:
+
+.. code:: sh
+
+    git config --global sendemail.from your.name@gmail.com
+
+You know have a patch set in something like a pull-1234 directory of
+your meta/base subdirectory. To send that, you can use the
+send-pull-request script to send to dev@oe-lite.org:
+
+.. code:: sh
+
+    ../core/scripts/send-pull-request -a -p pull-1234 -t dev@oe-lite.org
+
+For this to work, you need to have your host machine configured to be
+able to send e-mail, so that git send-email is able to send mails to the
+dev@oe-lite.org list. The details for how to do this depends very much
+on your host system setup, and is not covered in this handbook.
+
+Single patches
+--------------
+
+In some cases creating a pull request will require a lot of work
+overhead.
+
+When it is figured that a single patch will apply to the master branch
+of a OE-lite repository even after some time this is the faster way to
+submit changes to the project.
+
+Those special cases that applies cleanly could be, e.g. new recipes,
+small changes to split tasks, package tasks and so on.
+
+Let say you made a new recipe for the core repository, tested it and
+just committed it locally, simply do:
+
+.. code:: sh
+
+    git format-patch -1 --subject-prefix=core
+
+"-1" may be replaced with a specific commitid or "-2" if you want that
+last two commits in a patchfile.
+
+.. code:: sh
+
+    git format-patch -2 mypatches/ --subject-prefix=core
+
+The subject prefix is needed for now to make it visible what repository
+the patch applies to.
+
+Before sending single patch files upstream make sure that you have git
+send-email configure as described above.
+
+If you dont think the log message itself is saying enough to explain you
+change to the other members of the mailing list add "--cover-letter" to
+generate and editable cover letter where you can elaborate on the
+greater meaning with the patch (life, and everything).
+
+.. code:: sh
+
+    edit mypatch/0000-* #( if coverletter has been chosen)
+    git send-email mypatch/*
+
+or just one simple patch:
+
+.. code:: sh
+
+    git send-email 0001-<commit log name>.patch
