@@ -15,9 +15,8 @@ Building is done with the OE-lite Bakery sub-command called "bake".
 Before building you need to setup the build configuration in the file
 ``conf/local.conf``.
 
-A very minimal example configuration purely to test that building works:
-
-::
+A very minimal example configuration purely to test that building
+works::
 
     DISTRO = "base"
     MACHINE_CPU = "arm-926ejs"
@@ -53,18 +52,14 @@ Now it is possible to choose something to build with the bake command.
 In OE-lite all `recipes <#_oe_lite_terminology>`__
 `??? <#_oe_lite_terminology>`__ can be build. A recipe is a file with
 the ``.oe`` file extension, take a look at what recipes you have in your
-current manifest using:
-
-::
+current manifest using::
 
     find . -name '*.oe'
 
 The primary goal of the building process in OE-lite is to produce
 deployable images, so for this example we will build an image. In the
 base metadata layer a rootfs image recipe is located in:
-``recipes/images`` which we can try building:
-
-::
+``recipes/images`` which we can try building::
 
     oe bake base-rootfs
 

@@ -9,9 +9,7 @@ Cloning
 This chapter describes how to clone an existing OE-lite repository.
 
 To create a local clone of an OE-lite repository for development and/or
-build purposes, use the following command:
-
-::
+build purposes, use the following command::
 
     oe clone <url> <path>
 

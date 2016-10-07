@@ -22,9 +22,7 @@ To setup an OE-lite source mirror, you must use OE-lite/core 3.2.0 or
 newer.
 
 The filesystem path to the source mirror must be specified, fx. in your
-``local.conf`` file. Fx.
-
-::
+``local.conf`` file. Fx. ::
 
     MIRRORDIR = "/local/mirror"
 
@@ -95,9 +93,7 @@ variables must be modified.
 
 If you only want to fall-back to using the source mirror, and thus
 always try to fetch from the original source first, you should change
-the ``MIRRORS`` variable to something like
-
-::
+the ``MIRRORS`` variable to something like ::
 
     MIRRORS = """
     http://.*/ http://myserver/mirror/${INGREDIENTS_SUBDIR}/
@@ -108,9 +104,7 @@ the ``MIRRORS`` variable to something like
 
 If you want to use the source mirror first, and only fall-back to trying
 the orignial source in case fetching from the source mirror fails, you
-should change the ``PREMIRRORS`` variable to something like
-
-::
+should change the ``PREMIRRORS`` variable to something like ::
 
     PREMIRRORS = """
     http://.*/ http://myserver/mirror/${INGREDIENTS_SUBDIR}/
@@ -126,8 +120,6 @@ http://myserver/mirror URL.
 If you only want to allow fetching from the source mirror, and thus
 forbid fetching from any other remote server, you can use the
 ``URL_WHITELIST`` variable. In addition to the ``MIRRORS`` and/or
-``PREMIRRORS`` variables, you could add something like
-
-::
+``PREMIRRORS`` variables, you could add something like ::
 
     URL_WHITELIST = "http://myserver/mirror"

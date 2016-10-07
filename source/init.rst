@@ -38,9 +38,7 @@ of it. The primary purpose os to assign a value to the variable called
 An OE-lite stack is composed of a number of OE-lite layers, with each
 layer typically being a seperate git repository.
 
-A small OE-lite stack could look like this:
-
-::
+A small OE-lite stack could look like this::
 
     # OE-lite/base
     OESTACK += "meta/base"
@@ -78,9 +76,7 @@ separated by ";".
     the bakery.conf syntax here, when it is actually written…
 
 After the ``oe init`` command is done, the my-bsp directory should be
-populated with the following structure:
-
-::
+populated with the following structure::
 
     ├── conf
     │   └── bakery.conf
@@ -126,9 +122,7 @@ External Layers
 Let’s say you are creating an OE-lite manifest for your embedded Linux
 BSP project. You of-course need to use OE-lite/core, and the simplest
 solution is to just add it to the STACK by adding the following to
-bakery.conf:
-
-::
+bakery.conf::
 
     OESTACK += "meta/core"
     OESTACK .= ";srcuri=git://oe-lite.org/oe-lite/core.git"
@@ -202,11 +196,11 @@ hosting as a remote repository. Details on how to setup hosting is out
 of scope of this section.
 
 To setup an OE-lite repository of an existing OE-lite manifest, all you
-need to do is to call:
-
-::
+need to do is to call::
 
     oe clone --bare <url> <path>
+
+..
 
     **Note**
 

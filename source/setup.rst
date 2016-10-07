@@ -52,7 +52,7 @@ OE-lite Bakery uses the git command when fetching OE-lite manifests.
 The easiest way is most likely to simply install the git command
 provided by your host OS.
 
-**Debian GNU/Linux, Ubuntu Linux, ….**
+**Debian GNU/Linux, Ubuntu Linux, …**
 
 .. code:: sh
 
@@ -66,7 +66,7 @@ OE-lite Bakery uses PLY for parsing configuration files.
 The easiest way is most likely to simply install the PLY version
 provided by your host OS.
 
-**Debian GNU/Linux, Ubuntu Linux, ….**
+**Debian GNU/Linux, Ubuntu Linux, …**
 
 .. code:: sh
 

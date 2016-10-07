@@ -146,9 +146,7 @@ fx. in subject lines of mails being created with git-format-patch.
 These guidelines should be followed, but may be combined with common
 sense for doing things different when it makes sense.
 
-**Example: Adding a recipe named dhcp3.**
-
-::
+**Example: Adding a recipe named dhcp3** ::
 
     dhcp3: New recipe, for ISC DHCP version 3
 
