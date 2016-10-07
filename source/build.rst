@@ -25,13 +25,11 @@ works::
     SDK_OS = "linux-gnu"
     RMWORK = "0"
 
-The ``DISTRO`` variable selects the OE-lite
-`distribution <#_oe_lite_terminology>`__
-`??? <#_oe_lite_terminology>`__. Here we choose a simple distribution
-called base to be able to build something. Next we set the cpu we want
-to cross compile for using ``MACHINE_CPU``. It is also possible to set
-``MACHINE`` to target a specific board e.g. pandaboard or rpi
-(raspberry-pi).
+The ``DISTRO`` variable selects the :term:`OE-lite distribution`. Here
+we choose a simple distribution called base to be able to build
+something. Next we set the cpu we want to cross compile for using
+``MACHINE_CPU``. It is also possible to set ``MACHINE`` to target a
+specific board e.g. pandaboard or rpi (raspberry-pi).
 
     **Note**
 
@@ -41,18 +39,17 @@ to cross compile for using ``MACHINE_CPU``. It is also possible to set
 The ``PROVIDED`` variable is used to inform the bake command what
 dependencies can be assumed to be provided on the host system. See
 ``conf/provided/all.conf`` in the core metadata layer. The ``SDK``
-variables are used to specify what architecture the OE-lite
-`SDK <#_oe_lite_terminology>`__ `??? <#_oe_lite_terminology>`__ should
-be build for. ``RMWORK`` currently need to be set to 0 since automatic
-removal of temporary build files is not implemented. Optionally you may
-want to set ``PARALLEL_MAKE = "-j X"`` where X is the number of CPUs
-available on your host system + 1, to speed up the build.
+variables are used to specify what architecture the :term:`OE-lite
+SDK` should be build for. ``RMWORK`` currently need to be set to 0
+since automatic removal of temporary build files is not
+implemented. Optionally you may want to set ``PARALLEL_MAKE = "-j X"``
+where X is the number of CPUs available on your host system + 1, to
+speed up the build.
 
 Now it is possible to choose something to build with the bake command.
-In OE-lite all `recipes <#_oe_lite_terminology>`__
-`??? <#_oe_lite_terminology>`__ can be build. A recipe is a file with
-the ``.oe`` file extension, take a look at what recipes you have in your
-current manifest using::
+In OE-lite all :term:`recipes <OE-lite recipe>` can be build. A recipe
+is a file with the ``.oe`` file extension, take a look at what recipes
+you have in your current manifest using::
 
     find . -name '*.oe'
 

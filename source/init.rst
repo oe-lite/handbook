@@ -7,16 +7,13 @@ Project Setup
 *************
 
 This chapter describes how to setup a new OE-lite project, ie. the
-creation of a new OE-lite `manifest <#_oe_lite_terminology>`__
-`??? <#_oe_lite_terminology>`__ and setup of an OE-lite
-`repository <#_oe_lite_terminology>`__ `??? <#_oe_lite_terminology>`__
-for it.
+creation of a new :term:`OE-lite manifest` and setup of an
+:term:`OE-lite repository` for it.
 
 From Scratch
 ============
 
-To create a new OE-lite `manifest <#_oe_lite_terminology>`__
-`??? <#_oe_lite_terminology>`__ from scratch, all you need to do is:
+To create a new :term:`OE-lite manifest` from scratch, all you need to do is:
 
 1. Create an empty directory.
 
@@ -24,16 +21,15 @@ To create a new OE-lite `manifest <#_oe_lite_terminology>`__
 
 3. Run ``oe init``.
 
-4. Convert `layers <#_oe_lite_terminology>`__
-   `??? <#_oe_lite_terminology>`__ to be of internal layer type.
+4. Convert :term:`layers <OE-lite layer>` to be of internal layer type.
 
 Bakery.conf from scratch
 ------------------------
 
 The bakery.conf follows the OE-lite metadata syntax, or rather a subset
 of it. The primary purpose os to assign a value to the variable called
-``OESTACK``, which defines the OE-lite `stack <#_oe_lite_terminology>`__
-`??? <#_oe_lite_terminology>`__.
+``OESTACK``, which defines the :term:`OE-lite stack`
+.
 
 An OE-lite stack is composed of a number of OE-lite layers, with each
 layer typically being a seperate git repository.

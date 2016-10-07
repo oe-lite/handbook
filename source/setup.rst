@@ -152,11 +152,11 @@ installed already. The rest is pulled in by the oe-bakery package.
 Install Manifest Dependencies
 =============================
 
-Depending on the OE-lite `manifest(s) <#_oe_lite_terminology>`__
-`??? <#_oe_lite_terminology>`__ you will be working with, and what you
-will build with it, you will require some additional host tools. If you
-installed bakery from PPA, you most likely already have all you need,
-and you can skip this section.
+Depending on the :term:`OE-lite manifest(s) <OE-lite manifest>` you
+will be working with, and what you will build with it, you will
+require some additional host tools. If you installed bakery from PPA,
+you most likely already have all you need, and you can skip this
+section.
 
 If you installed bakery in another way, you might want to install some
 additional development tools.
