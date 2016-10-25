@@ -56,3 +56,27 @@ OE-lite Terminology
    OE-lite repository
       A bare clone of the OE-lite manifest git repository, and bare
       clones of any OE-lite layers using relative paths.
+
+   OE-lite class
+     A file providing certain functionality to recipes, allowing one
+     to avoid duplicating logic and simplify recipe files.
+
+   OE-lite recipe
+     A recipe describes how to build a piece of software. The output
+     of a recipe is one or more `packages <OE-lite package>`. For
+     example, a recipe for a library would typically be split into a
+     package containing the library itself, a -dev package containing
+     the header files, a -dbg package containing the debug symbols and
+     possibly a -doc package containing documentation.
+
+   OE-lite package
+     A package is a tar-ball containing a subset of the files produced
+     from a specific recipe. A package provides one or more `items
+     <OE-lite item>`.
+
+   OE-lite task
+     A task is one step in the building of a recipe.
+
+   OE-lite item
+     An item is the fundamental unit which is used for resolving
+     dependencies.
