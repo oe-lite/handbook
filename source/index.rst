@@ -14,6 +14,7 @@ OE-lite Developers Handbook
    release
    upstream
    terms
+   syntax
    cc-by-sa
 
 :Authors:
