@@ -89,3 +89,8 @@ OE-lite Terminology
      A directory, usually just named ``ingredients`` and located in
      the `OE-lite manifest` directory, acting as a local cache for
      fetched source tar-balls.
+
+   staging
+     The process of populating the ``${WORKDIR}/stage`` directory with
+     all utilities, libraries and other files necessary to build a
+     given recipe.
