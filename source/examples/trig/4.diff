@@ -1,0 +1,14 @@
+diff --git a/recipes/trig/trig_0.1.oe b/recipes/trig/trig_0.1.oe
+index 932855c..e9e2522 100644
+--- a/recipes/trig/trig_0.1.oe
++++ b/recipes/trig/trig_0.1.oe
+@@ -9,6 +9,9 @@ SRC_URI = "file://trig.c"
+ 
+ S="${SRCDIR}"
+ 
++DEPENDS += "libm"
++RDEPENDS_${PN} += "libm"
++
+ do_compile() {
+     for f in sin cos tan ; do
+       $CC -o $f -DFUNC=$f -O2 -g trig.c -lm

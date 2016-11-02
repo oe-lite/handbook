@@ -13,6 +13,9 @@ OE-lite Developers Handbook
    mirror
    release
    upstream
+   recipes
+   recipe_examples
+   tasks
    terms
    syntax
    cc-by-sa

@@ -1,0 +1,14 @@
+DESCRIPTION = "Example trigonometric utilities"
+LICENSE = "GPL-2.0+"
+
+RECIPE_TYPES = "machine native"
+
+inherit c
+
+SRC_URI = "file://trig.c"
+
+do_compile() {
+    for f in sin cos tan ; do
+      $CC -o $f -DFUNC=$f -O2 trig.c
+    done
+}
