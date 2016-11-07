@@ -12,6 +12,8 @@ Debian/Ubuntu system, this can be installed by running
 
 ```sh
 $ sudo apt-get install make python-sphinx sphinx-rtd-theme-common
+$ sudo apt-get install python-pip
+$ sudo pip install sphinxcontrib-domaintools
 ```
 
 You may then build the html version by running
