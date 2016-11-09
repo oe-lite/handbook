@@ -180,3 +180,86 @@ However the signature file is generated, it is up to the creator of
 the recipe to ensure its *authenticity*, e.g. by comparing a checksum
 of the downloaded file to one provided by the upstream project (which
 is not necessarily a SHA1).
+
+.. _dependencies:
+
+Dependencies
+------------
+
+There are a few different types of dependencies one needs to know
+about – and these dependencies must be described to OE-lite using
+these variables:
+
+.. oe:var:: DEPENDS
+
+   Describes recipe build dependencies – items that are necessary to
+   build the recipe.
+
+.. oe:var:: RDEPENDS
+
+   Describes recipe runtime dependencies – not used in ordinary
+   recipes (see below).
+
+.. oe:var:: DEPENDS_foo
+
+   Describes package build dependencies – additional items that are
+   necessary to build something that depends on the foo package.
+
+.. oe:var:: RDEPENDS_foo
+
+   Describes package runtime dependencies – additional items that are
+   necessary at runtime for using something that has a runtime
+   dependency on the foo package.
+
+OE-lite distinguishes between *build* and *runtime*
+dependencies. A *build* dependency is something that is necessary to
+build a given recipe, while a *runtime* dependency describes some
+other item (typically a shared library) that is needed to actually run
+the software.
+
+These are further divided into *recipe* dependencies and *package*
+dependencies. Recipe dependencies (given in the unsuffixed
+``DEPENDS``, ``RDEPENDS`` variables) describe what is required to
+build the recipe. Package dependencies, given in ``DEPENDS_<package
+name>``, ``RDEPENDS_<package name>``, describe what is needed to use
+the contents of the package at build-time respectively run-time.
+
+An example where package build-time dependencies would come into play
+is if we have two libraries, libfoo and libbar and a utility frob,
+with libfoo depending on libbar and frob depending on libbar. In the
+frob recipe, we would then have something like::
+
+  DEPENDS += "libbar"
+  RDEPENDS_${PN} += "libbar"
+
+The frob utility probably does a ``#include <bar.h>`` somewhere, but
+``bar.h`` contains a ``#include <foo.h>``. That libbar depends on
+libfoo is an implementation detail of libbar, which frob doesn't care
+about (and it may change with a different version of libbar), but in
+this case we obviously need to ensure that ``foo.h`` gets staged when
+building frob. The solution to this is to ensure that the package
+providing libbar has a build-time dependency on libfoo. So the libbar
+recipe might contain ::
+
+  DEPENDS += "libfoo"
+  DEPENDS_${PN} += "libfoo-dev"
+  RDEPENDS_${PN} += "libfoo"
+
+which says that (1) libfoo is necessary to build libbar, (2) to build
+anything against libbar, you also need the libfoo-dev package, (3) if
+you run-time depend on libbar, you also run-time depend on libfoo.
+
+The alert reader may wonder how a *run-time dependency* for *building*
+a recipe makes any sense. And in truth, most normal recipes do not
+have those – a bare ``RDEPENDS`` in a recipe is usually an
+error. However, there is one type of recipes which do have
+``RDEPENDS``: Those that inherit image.oeclass, and hence describe a
+complete file system image. While normal recipes have a do_stage task,
+which pulls in all packages mentioned in the recipe's ``DEPENDS``
+variable as well as their package *build* dependencies (recursively),
+image recipes have a do_rstage task which pulls in all the packages in
+the recipe's ``RDEPENDS`` variable as well as their package *runtime*
+dependencies (recursively). It is admittedly a stretch to call this
+run-time build dependencies, but as the preceding sentence hopefully
+demonstrates, this makes the handling of the two staging tasks nicely
+symmetric.

@@ -22,13 +22,13 @@ magic. So we create this directory tree::
               │   └── trig.c
               └── trig_0.1.oe
 
-  
+
 The file ``trig.c`` is simply:
-  
+
 .. literalinclude:: examples/trig/trig.c
    :language: c
    :caption: recipes/trig/files/trig.c
-	      
+
 Our first attempt at describing how to build this to OE-lite is this:
 
 .. literalinclude:: examples/trig/trig_0.1.oe
@@ -91,7 +91,7 @@ Let's try this:
    waiting for machine:trig_0.1:do_compile (started 0.020 seconds ago) to finish
    ERROR: machine:trig_0.1:do_compile failed - 0.023 s
    Build: 0.674 seconds
-   
+
    ERROR: machine:trig_0.1:do_compile failed  /mnt/xfs/devel/oe-lite/tmp/work/machine/arm-926ejs-linux-gnueabi/trig-0.1/tmp/do_compile.20161102082713.log
    > LC_ALL=C /mnt/xfs/devel/oe-lite/tmp/work/machine/arm-926ejs-linux-gnueabi/trig-0.1/tmp/do_compile.20161102082713.run
    + cd /mnt/xfs/devel/oe-lite/tmp/work/machine/arm-926ejs-linux-gnueabi/trig-0.1/src/trig-0.1
@@ -102,7 +102,7 @@ Let's try this:
    arm-926ejs-linux-gnueabi-gcc: fatal error: no input files
    compilation terminated.
    Error: Command failed: 'LC_ALL=C /mnt/xfs/devel/oe-lite/tmp/work/machine/arm-926ejs-linux-gnueabi/trig-0.1/tmp/do_compile.20161102082713.run': 1
-   
+
    CRITICAL: bake failed: error: 1
 
 It can sometimes be difficult to see what the problem actually
@@ -146,7 +146,7 @@ what does *there* mean? Let's inspect the workdir:
       ├── do_stage.log -> do_stage.20161102082713.log
       ├── do_unpack.20161102082713.log
       └── do_unpack.log -> do_unpack.20161102082713.log
-  
+
   21 directories, 10 files
 
 Here we see the problem: do_compile was run in the
@@ -161,7 +161,7 @@ section `task-directories`), but ``trig.c`` has been put in
 With this in place, let's try again.
 
 .. code-block:: console
-   
+
    oe bake trig -y
    ...
    + cd /mnt/xfs/devel/oe-lite/tmp/work/machine/arm-926ejs-linux-gnueabi/trig-0.1/src
@@ -172,7 +172,7 @@ With this in place, let's try again.
    trig.c:(.text.startup+0x2c): undefined reference to `sin'
    collect2: error: ld returned 1 exit status
    Error: Command failed: 'LC_ALL=C /mnt/xfs/devel/oe-lite/tmp/work/machine/arm-926ejs-linux-gnueabi/trig-0.1/tmp/do_compile.20161102091655.run': 1
-   
+
    CRITICAL: bake failed: error: 1
 
 Right, we didn't provide the ``-lm`` linker flag. OK, that's easy to fix.
@@ -183,7 +183,7 @@ Right, we didn't provide the ``-lm`` linker flag. OK, that's easy to fix.
 Once more. What can possibly go wrong now?
 
 .. code-block:: console
-   
+
    $ oe bake trig -y
    ...
    ERROR: machine:trig_0.1:do_compile failed  /mnt/xfs/devel/oe-lite/tmp/work/machine/arm-926ejs-linux-gnueabi/trig-0.1/tmp/do_compile.20161102092251.log
@@ -195,7 +195,7 @@ Once more. What can possibly go wrong now?
    /mnt/xfs/devel/oe-lite/tmp/work/machine/arm-926ejs-linux-gnueabi/trig-0.1/stage/cross/bin/../lib/gcc/arm-926ejs-linux-gnueabi/5.4.0/../../../../arm-926ejs-linux-gnueabi/bin/ld: cannot find -lm
    collect2: error: ld returned 1 exit status
    Error: Command failed: 'LC_ALL=C /mnt/xfs/devel/oe-lite/tmp/work/machine/arm-926ejs-linux-gnueabi/trig-0.1/tmp/do_compile.20161102092251.run': 1
-   
+
    CRITICAL: bake failed: error: 1
 
 That this fails is actually a good thing, because it shows that
@@ -220,62 +220,14 @@ libm gets included, but that's not necessarily the case for other
 libraries, so it's better to always explicitly describe the exact
 dependencies.)
 
-Aside: dependency types
------------------------
+Since our utilities end up in the package by the same name as the
+recipe, we tell OE-lite that anything that run-time depends on the
+``trig`` *package* should also pull in libm.
 
-So why did we spell the runtime dependency ``RDEPENDS_${PN}`` and not
-just ``RDEPENDS``? There are actually two kinds of build-time as well
-as two types of run-time dependencies, *recipe dependencies* and
-*package dependencies*. Recipe dependencies (given in the unsuffixed
-``DEPENDS``, ``RDEPENDS`` variables) describe what is required to
-build the recipe. Package dependencies, given in ``DEPENDS_<package
-name>``, ``RDEPENDS_<package name``, describe what is needed to use
-the contents of the package at build-time respectively run-time. Since
-our utilities end up in the package by the same name as the recipe, we
-tell OE-lite that anything that run-time depends on the ``trig``
-*package* should also pull in libm.
-
-An example where package build-time dependencies would come into play
-is if we have two libraries, libfoo and libbar and a utility frob,
-with libfoo depending on libbar and frob depending on libbar. In the
-frob recipe, we would then have something like::
-
-  DEPENDS += "libbar"
-  RDEPENDS_${PN} += "libbar"
-
-The frob utility probably does a ``#include <bar.h>`` somewhere, but
-``bar.h`` contains a ``#include <foo.h>``. That libbar depends on
-libfoo is an implementation detail of libbar, which frob doesn't care
-about (and it may change with a different version of libbar), but in
-this case we obviously need to ensure that ``foo.h`` gets staged when
-building frob. The solution to this is to ensure that the package
-providing libbar has a build-time dependency on libfoo. So the libbar
-recipe might contain ::
-
-  DEPENDS += "libfoo"
-  DEPENDS_${PN} += "libfoo-dev"
-  RDEPENDS_${PN} += "libfoo"
-
-which says that (1) libfoo is necessary to build libbar, (2) to build
-anything against libbar, you also need the libfoo-dev package, (3) if
-you run-time depend on libbar, you also run-time depend on libfoo.
-  
-The alert reader may wonder how a *run-time dependency* for *building*
-a recipe makes any sense. And in truth, most normal recipes do not
-have those – a bare ``RDEPENDS`` in a recipe is usually an
-error. However, there is one type of recipes which do have
-``RDEPENDS``: Those that inherit image.oeclass, and hence describe a
-complete file system image. While normal recipes have a do_stage task,
-which pulls in all packages mentioned in the recipe's ``DEPENDS``
-variable as well as their package dependencies (recursively), image
-recipes have an do_rstage task which pulls in all the packages in the
-recipe's ``RDEPENDS`` variable as well as their package rdependencies
-(recursively). It is admittedly a stretch to call this run-time build
-dependencies, but as the preceding sentence hopefully demonstrates,
-this makes the handling of the two staging tasks nicely symmetric.
-
-Back to the example
--------------------
+See the section `dependencies` for details on the various types of
+dependencies and the variables describing them, and why the runtime
+dependency was spelled ``RDEPENDS_${PN}`` rather than just
+``RDEPENDS``
 
 While we can now succesfully build the trig utilities, the recipe is
 not quite complete. Looking at the directory ``${WORKDIR}/packages``,
@@ -310,7 +262,7 @@ and puts them in the ``.debug`` subdirectory:
            │   └── tan*
            ├── sin*
            └── tan*
-   
+
    3 directories, 6 files
 
 The next task is do_split, which takes the contents of the ``${D}``
@@ -338,7 +290,7 @@ have reasonable default values, so we get this structure:
    ├── trig-dev/
    ├── trig-doc/
    └── trig-locale/
-   
+
    10 directories, 6 files
 
 This allows one to RDEPEND on ``trig``, but if one also wants the
@@ -383,7 +335,6 @@ might want to improve.
 
 Instead of showing how to achieve this, we'll turn our attention to an
 example from »real life«.
-  
+
 Dissection of an existing recipe
 ================================
-
