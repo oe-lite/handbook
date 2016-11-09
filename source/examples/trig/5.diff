@@ -1,0 +1,13 @@
+diff --git a/recipes/trig/trig_0.1.oe b/recipes/trig/trig_0.1.oe
+index e9e2522..07766b9 100644
+--- a/recipes/trig/trig_0.1.oe
++++ b/recipes/trig/trig_0.1.oe
+@@ -17,3 +17,8 @@ do_compile() {
+       $CC -o $f -DFUNC=$f -O2 -g trig.c -lm
+     done
+ }
++
++do_install() {
++    install -m 0755 -d ${D}${bindir}
++    install -m 0755 -t ${D}${bindir} sin cos tan
++}

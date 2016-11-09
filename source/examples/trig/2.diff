@@ -1,0 +1,13 @@
+diff --git a/recipes/trig/trig_0.1.oe b/recipes/trig/trig_0.1.oe
+index 73f8c02..a446526 100644
+--- a/recipes/trig/trig_0.1.oe
++++ b/recipes/trig/trig_0.1.oe
+@@ -7,6 +7,8 @@ inherit c
+ 
+ SRC_URI = "file://trig.c"
+ 
++S="${SRCDIR}"
++
+ do_compile() {
+     for f in sin cos tan ; do
+       $CC -o $f -DFUNC=$f -O2 -g trig.c

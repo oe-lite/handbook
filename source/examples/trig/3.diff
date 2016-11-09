@@ -1,0 +1,12 @@
+diff --git a/recipes/trig/trig_0.1.oe b/recipes/trig/trig_0.1.oe
+index a446526..932855c 100644
+--- a/recipes/trig/trig_0.1.oe
++++ b/recipes/trig/trig_0.1.oe
+@@ -11,6 +11,6 @@ S="${SRCDIR}"
+ 
+ do_compile() {
+     for f in sin cos tan ; do
+-      $CC -o $f -DFUNC=$f -O2 -g trig.c
++      $CC -o $f -DFUNC=$f -O2 -g trig.c -lm
+     done
+ }

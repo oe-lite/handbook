@@ -1,0 +1,48 @@
+diff --git a/recipes/trig/files/trig.c b/recipes/trig/files/trig.c
+new file mode 100644
+index 0000000..3a21926
+--- /dev/null
++++ b/recipes/trig/files/trig.c
+@@ -0,0 +1,22 @@
++#include <stdio.h>
++#include <math.h>
++#include <stdlib.h>
++
++#ifndef FUNC
++#error FUNC must be defined on the command line
++#endif
++/* standard stringify trick */
++#define ss(x) #x
++#define s(x) ss(x)
++
++int main(int argc, char *argv[])
++{
++	double x = 0.0, y;
++
++	/* Error checking omitted. */
++	if (argc > 1)
++		x = strtod(argv[1], NULL);
++	y = FUNC(x);
++	printf("%s(%f) = %f\n", s(FUNC), x, y);
++	return 0;
++}
+diff --git a/recipes/trig/trig_0.1.oe b/recipes/trig/trig_0.1.oe
+new file mode 100644
+index 0000000..73f8c02
+--- /dev/null
++++ b/recipes/trig/trig_0.1.oe
+@@ -0,0 +1,14 @@
++DESCRIPTION = "Example trigonometric utilities"
++LICENSE = "GPL-2.0+"
++
++RECIPE_TYPES = "machine native"
++
++inherit c
++
++SRC_URI = "file://trig.c"
++
++do_compile() {
++    for f in sin cos tan ; do
++      $CC -o $f -DFUNC=$f -O2 -g trig.c
++    done
++}

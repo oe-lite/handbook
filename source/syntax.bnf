@@ -1,0 +1,124 @@
+.. productionlist::
+   syntax              : `statement`
+                       : `statement` `syntax`
+   statement           : NEWLINE
+                       : `assignment` NEWLINE
+                       : `export_variable` NEWLINE
+                       : `include` NEWLINE
+                       : `require` NEWLINE
+                       : `inherit` NEWLINE
+                       : `func` NEWLINE
+                       : `fakeroot_func` NEWLINE
+                       : `python_func` NEWLINE
+                       : `def_func`
+                       : `addtask` NEWLINE
+                       : `addhook` NEWLINE
+                       : `prefer` NEWLINE
+                       : COMMENT
+   variable            : VARNAME
+                       : `export_variable`
+   export_variable     : `EXPORT` VARNAME
+   varflag             : VARNAME FLAG
+   varoverride         : VARNAME OVERRIDE
+   string              : `empty_string`
+                       : `quoted_string`
+                       : STRING
+   empty_string        : `QUOTE` `QUOTE`
+   quoted_string       : `QUOTE` `string_value` `QUOTE`
+   string_value        : STRING
+                       : STRING `string_value`
+   assignment          : `variable` `ASSIGN` `string`
+                       : `varflag` `ASSIGN` `string`
+                       : `varoverride` `ASSIGN` `string`
+                       : `variable` `EXPASSIGN` `string`
+                       : `varflag` `EXPASSIGN` `string`
+                       : `varoverride` `EXPASSIGN` `string`
+                       : `variable` LAZYASSIGN `string`
+                       : `variable` `WEAKASSIGN` `string`
+                       : `varflag` `WEAKASSIGN` `string`
+                       : `varoverride` `WEAKASSIGN` `string`
+                       : `variable` `APPEND` `string`
+                       : `varflag` `APPEND` `string`
+                       : `varoverride` `APPEND` `string`
+                       : `variable` `PREPEND` `string`
+                       : `varflag` `PREPEND` `string`
+                       : `varoverride` `PREPEND` `string`
+                       : `variable` `PREDOT` `string`
+                       : `varflag` `PREDOT` `string`
+                       : `varoverride` `PREDOT` `string`
+                       : `variable` `POSTDOT` `string`
+                       : `varflag` `POSTDOT` `string`
+                       : `varoverride` `POSTDOT` `string`
+   include             : `INCLUDE` INCLUDEFILE
+   require             : `REQUIRE` INCLUDEFILE
+   inherit             : `INHERIT` `inherit_classes`
+   inherit_classes     : INHERITCLASS
+                       : INHERITCLASS `inherit_classes`
+   addtask             : `addtask_task`
+                       : `addtask_task` `addtask_dependencies`
+   addtask_task        : `ADDTASK` TASK
+   addtask_dependencies: `addtask_dependency`
+                       : `addtask_dependency` `addtask_dependencies`
+   addtask_dependency  : `addtask_after`
+                       : `addtask_before`
+   addtask_after       : `AFTER` `tasks`
+   addtask_before      : `BEFORE` `tasks`
+   tasks               : TASK
+                       : TASK `tasks`
+   addhook             : `ADDHOOK` HOOK `TO` HOOKNAME
+                       : `ADDHOOK` HOOK `TO` HOOKNAME HOOKSEQUENCE
+                       : `ADDHOOK` HOOK `TO` HOOKNAME `addhook_dependencies`
+                       : `ADDHOOK` HOOK `TO` HOOKNAME HOOKSEQUENCE `addhook_dependencies`
+   addhook_dependencies: `addhook_dependency`
+                       : `addhook_dependency` `addhook_dependencies`
+   addhook_dependency  : `addhook_after`
+                       : `addhook_before`
+   addhook_after       : `AFTER` `hooks`
+   addhook_before      : `BEFORE` `hooks`
+   hooks               : HOOK
+                       : HOOK `hooks`
+   prefer              : `PREFER` `recipe` `maybe_layer` `maybe_version`
+                       : `PREFER` `packages` `maybe_recipe` `maybe_layer` `maybe_version`
+   recipe              : RECIPE RECIPENAME
+   maybe_recipe        : 
+                       : `recipe`
+   layer               : LAYER LAYERNAME
+   maybe_layer         : 
+                       : `layer`
+   version             : VERSION VERSIONNAME
+   maybe_version       : 
+                       : `version`
+   packages            : PACKAGE `package`
+   package             : PACKAGENAME
+                       : PACKAGENAME `package`
+   func                : VARNAME FUNCSTART `func_body` FUNCSTOP
+   func_body           : FUNCLINE
+                       : FUNCLINE `func_body`
+   fakeroot_func       : `FAKEROOT` `func`
+   python_func         : `python_func_start` `func_body` FUNCSTOP
+   python_func_start   : `PYTHON` VARNAME FUNCSTART
+   def_func            : `DEF` VARNAME `def_funcargs` NEWLINE `func_body`
+                       : `DEF` VARNAME `def_funcargs` NEWLINE `func_body` FUNCSTOP
+   def_funcargs        : ARGSTART STRING ARGSTOP
+                       : ARGSTART ARGSTOP
+   ADDHOOK             : addhook
+   ADDTASK             : addtask
+   AFTER               : after
+   APPEND              : +=
+   ASSIGN              : =
+   BEFORE              : before
+   DEF                 : def
+   EXPASSIGN           : :=
+   EXPORT              : export
+   FAKEROOT            : fakeroot
+   INCLUDE             : include
+   INHERIT             : inherit
+   POSTDOT             : =.
+   PREDOT              : .=
+   PREFER              : prefer
+   PREPEND             : =+
+   PYTHON              : python
+   QUOTE               : "
+   REQUIRE             : require
+   TO                  : to
+   WEAKASSIGN          : ?=
