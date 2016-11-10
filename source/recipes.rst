@@ -263,3 +263,88 @@ dependencies (recursively). It is admittedly a stretch to call this
 run-time build dependencies, but as the preceding sentence hopefully
 demonstrates, this makes the handling of the two staging tasks nicely
 symmetric.
+
+
+USE flags
+---------
+
+To make it possible to tweak various aspects of a recipe without
+having to modify the recipe itself, OE-lite has the concept of *USE
+flags*. These are special variables, called ``USE_*``, which are not
+set directly but rather receive their value from settings in various
+configuration files. The value of ``USE_foo`` is the value of one of
+these variables:
+
+- ``DEFAULT_USE_foo`` (lowest priority)
+- ``DISTRO_USE_foo`` (intended for distro configs)
+- ``MACHINE_USE_foo`` (intended for machine configs)
+- ``LOCAL_USE_foo`` (intended for local.conf)
+- ``RECIPE_USE_foo`` (highest priority)
+
+The idea is that one can, for example, have a generic setting
+``DISTRO_USE_foo = "1"`` in a ``distro.conf`` file, while overriding
+that with ``MACHINE_USE_foo = "0"`` in a machine-specific
+configuration file.
+
+.. oe:var:: RECIPE_FLAGS
+
+   This is a space-separated list of USE flag names (without the
+   ``USE_`` prefix) that apply to the recipe. Only those USE flags
+   listed in :oe:var:`RECIPE_FLAGS` are available as variables.
+
+Since USE flags are set globally, it is good practice to have the
+first word of the name be the same as the recipe name.
+
+A USE flag example
+~~~~~~~~~~~~~~~~~~
+
+An example from the `freetype` recipe::
+
+  RECIPE_FLAGS += "freetype_bzip2"
+  EXTRA_OECONF += "${EXTRA_OECONF_BZIP2}"
+  EXTRA_OECONF_BZIP2 = "--without-bzip2"
+  EXTRA_OECONF_BZIP2:USE_freetype_bzip2 = "--with-bzip2"
+  DEPENDS:>USE_freetype_bzip2 = " libbz2"
+  DEPENDS_${PN}:>USE_freetype_bzip2 = " libbz2"
+  RDEPENDS_${PN}:>USE_freetype_bzip2 = " libbz2"
+
+This defines a USE flag ``USE_freetype_bzip2`` which is used to decide
+whether freetype should be compiled with support for bz2-compressed
+fonts.
+
+The logic in the three ``EXTRA_OECONF`` lines is that we append the
+value of the ``EXTRA_OECONF_BZIP2`` variables to the ``EXTRA_OECONF``
+variable - as explained below in the `autotools` section, the contents
+of that variable is appended to the ``./configure`` command line when
+a recipe uses the ``autotools`` class. The next line defines the
+``EXTRA_OECONF_BZIP2`` variable with the contents ``--without-bzip2``,
+while the third line uses the `override` mechanism to set its value to
+``--with-bzip2``. Altogether, this ensures that freetype gets
+configured appropriately.
+
+But the recipe author's job is not quite done yet. When the USE flag
+is set, building the recipe also requires libbz2, so we need
+to, conditionally, append libbz2 to the ``DEPENDS`` variable.
+
+The freetype library ends up in the package also called freetype, so
+we declare libbz2 as a build as well as runtime dependency of the
+freetype package.
+
+USE flag gotchas
+~~~~~~~~~~~~~~~~
+
+Most USE flags are boolean flags, so they are usually just assigned a
+value of False or True, but they can really be any string. When used
+in an override assignment, the strings ``""`` and ``"0"`` as well as
+the value False are treated as false (that is, the override is not
+applied), while all others are treated as true.
+
+Due to a quirk of the current implementation, USE flag variables whose
+final value is either the empty string or the string ``"0"`` end up
+not being defined at all. This can unfortunately manifest itself as
+rather obscure and hard-to-debug errors such as ``Exception: cannot
+concatenate 'str' and 'NoneType' objects``, or worse not be detected
+at build-time at all. It is also worth noting that using the tokens
+``True`` and ``False`` on the right-hand side of assignments is
+treated exactly as if one used ``"1"`` and ``"0"``, respectively.
+
