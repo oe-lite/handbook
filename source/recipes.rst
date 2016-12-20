@@ -314,13 +314,13 @@ fonts.
 
 The logic in the three ``EXTRA_OECONF`` lines is that we append the
 value of the ``EXTRA_OECONF_BZIP2`` variables to the ``EXTRA_OECONF``
-variable - as explained below in the `autotools` section, the contents
-of that variable is appended to the ``./configure`` command line when
-a recipe uses the ``autotools`` class. The next line defines the
-``EXTRA_OECONF_BZIP2`` variable with the contents ``--without-bzip2``,
-while the third line uses the `override` mechanism to set its value to
-``--with-bzip2``. Altogether, this ensures that freetype gets
-configured appropriately.
+variable - as explained below in the `autotools_class` section, the
+contents of that variable is appended to the ``./configure`` command
+line when a recipe uses the ``autotools`` class. The next line defines
+the ``EXTRA_OECONF_BZIP2`` variable with the contents
+``--without-bzip2``, while the third line uses the `override`
+mechanism to set its value to ``--with-bzip2``. Altogether, this
+ensures that freetype gets configured appropriately.
 
 But the recipe author's job is not quite done yet. When the USE flag
 is set, building the recipe also requires libbz2, so we need
