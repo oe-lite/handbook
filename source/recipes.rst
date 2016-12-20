@@ -415,3 +415,79 @@ the recipe file to force a serial build.
 :oe:var:`MAKE_DESTDIR` usually contains the value ``DESTDIR=${D}``, and
 thus serves to ensure that the ``DESTDIR`` variable is defined
 appropriately.
+
+.. _auto_package_libs_class:
+
+auto-package-libs
+-----------------
+
+Some recipes provide multiple (more or less related) libraries. The
+auto-package-libs `class <OE-lite class>` provides a convenient way to
+split those libraries into separate `packages <OE-lite package>`. It
+is easiest to look at an example to to explain how it is used.
+
+The mosquitto recipe generates two libraries libmosquitto and
+libmosquittopp, the latter being a C++ version. In ``mosquitto.inc``
+we find::
+
+  inherit auto-package-libs
+  AUTO_PACKAGE_LIBS = "mosquitto mosquittopp"
+
+That is, the :oe:var:`AUTO_PACKAGE_LIBS` variable should contain the
+list of library names, each without the ``lib`` prefix. For each
+library name X, this automatically creates the packages
+mosquitto-libX, mosquitto-libX-dev and mosquitto-libX-dbg [»creating«
+a package is really just a matter of adding a word to the
+:oe:var:`PACKAGES` variable], and also creates corresponding
+``FILES_*`` variables naming the files which belong to those
+packages. For example, for the three mosquittopp packages, the
+``FILES_*`` variables contain::
+
+  FILES_mosquitto-libmosquittopp='/usr/lib/libmosquittopp.so.*'
+  FILES_mosquitto-libmosquittopp-dbg='/usr/lib/.debug/libmosquittopp.so.*'
+  FILES_mosquitto-libmosquittopp-dev='/usr/lib/libmosquittopp.so /usr/lib/libmosquittopp.la /usr/lib/libmosquittopp.a /usr/lib/pkgconfig/mosquittopp.pc'
+
+The `do_split_task` task puts every file matching those glob patterns
+into the corresponding package.
+
+Unfortunately, the two lines above are not quite sufficient to explain
+everything to OE-lite - in particular, we need to define the `package
+dependencies <dependencies>` for the individual packages, so that a
+build or run-time dependency on e.g. libmosquittopp automatically
+pulls in anything else that that library needs. For convenience, four
+variables are available that can be set to common dependencies for all
+the libX and libX-dev packages:
+
+.. oe:var:: AUTO_PACKAGE_LIBS_DEPENDS
+
+   automatically added to each package build dependency DEPENDS_foo-libX.
+
+.. oe:var:: AUTO_PACKAGE_LIBS_RDEPENDS
+
+   automatically added to each package run-time dependency variable RDEPENDS_foo-libX.
+
+.. oe:var:: AUTO_PACKAGE_LIBS_DEV_DEPENDS
+
+   automatically added to each package build dependency DEPENDS_foo-libX-dev.
+
+.. oe:var:: AUTO_PACKAGE_LIBS_DEV_RDEPENDS
+
+   automatically added to each package run-time dependency variable RDEPENDS_foo-libX-dev.
+
+For example, the mosquitto.inc file contains::
+
+  AUTO_PACKAGE_LIBS_DEPENDS = "libpthread librt libz libm openssl"
+  AUTO_PACKAGE_LIBS_RDEPENDS = "libc libcrypto libpthread librt libssl"
+
+In addition, the C++ library depends on the C library, so we additionally have::
+
+  DEPENDS_mosquitto-libmosquittopp += "libmosquitto libstdc++"
+  RDEPENDS_mosquitto-libmosquittopp += "libmosquitto libgcc libstdc++"
+
+For hopefully obvious reasons, libmosquitto cannot be added to the
+common dependency variable AUTO_PACKAGE_LIBS_DEPENDS, but on the other
+hand it is crucial that depending on libmosquittopp in some other
+recipe also implies a dependency on libmosquitto. One could add
+libstdc++ to the common dependency variable, but that would
+unnecessarily pollute the staging area for recipes that only depend on
+the C library.
