@@ -348,3 +348,70 @@ at build-time at all. It is also worth noting that using the tokens
 ``True`` and ``False`` on the right-hand side of assignments is
 treated exactly as if one used ``"1"`` and ``"0"``, respectively.
 
+.. _autotools_class:
+
+autotools
+---------
+
+The autotools `class <OE-lite class>` is useful for software that uses
+the `GNU Build System
+<https://en.wikipedia.org/wiki/GNU_Build_System>`_, usually just known
+as Autotools. It provides suitable implementations of
+``do_configure``, ``do_compile`` and ``do_install`` (the latter two
+being inherited from the `make_class` class) For example,
+``do_configure`` invokes the autoconf ``configure`` script with all
+the cross-compile relevant arguments (``--build``, ``--host``,
+``--prefix``, ``cross_compiling=yes`` etc. etc.) set appropriately.
+
+.. oe:var:: EXTRA_OECONF
+
+One can augment the ``./configure`` commandline by setting the
+:oe:var:`EXTRA_OECONF` variable – the value of this variable is simply
+appended to the ``./configure`` invocation. We saw an example of this
+in the USE flag example above, where ``EXTRA_OECONF`` was made to
+contain either ``--with-bzip2`` or ``--without-bzip2`` depending on
+the value of the ``USE_freetype_bzip2`` flag.
+
+Since each piece of software has a different set of ``--enable-*``,
+``--disable-*``, ``--with-*``, ``--without-*`` etc. flags, it is up to
+the recipe author to add any appropriate options to
+``EXTRA_OECONF``. Making each feature controllable with a USE flag can
+be quite cumbersome, and there's nothing wrong with starting out with
+just unconditionally adding e.g. ``--without-udev``.
+
+.. _make_class:
+
+make
+----
+
+The make `class <OE-lite class>` is useful for software that is built
+and installed using standard ``make`` and ``make install``
+commands. It provides suitable definitions of ``do_compile`` and
+``do_install`` that, essentially, run ``make`` and ``make install``,
+respectively.
+
+.. oe:var:: EXTRA_OEMAKE
+.. oe:var:: PARALLEL_MAKE
+.. oe:var:: EXTRA_OEMAKE_COMPILE
+.. oe:var:: EXTRA_OEMAKE_INSTALL
+.. oe:var:: MAKE_DESTDIR
+
+The contents of the :oe:var:`EXTRA_OEMAKE` variable is appended to the
+``make`` command line in both cases. In addition,
+:oe:var:`PARALLEL_MAKE` and :oe:var:`EXTRA_OEMAKE_COMPILE` are appended
+in the ``do_compile`` case, while :oe:var:`EXTRA_OEMAKE_INSTALL` and
+:oe:var:`MAKE_DESTDIR` are appended in the ``do_install`` case.
+
+The ``EXTRA_OEMAKE*`` variables are for recipe-specific tweaks; often
+they are not needed at all.
+
+:oe:var:`PARALLEL_MAKE` is typically defined in ``local.conf`` and
+hence applies to all recipes, containing something like ``-j8`` or
+however many cpu cores one has (or wishes to use). Some software is
+known not to support parallel builds – in those cases, one can set
+``PARALLEL_MAKE = ""`` or more explicitly ``PARALLEL_MAKE = "-j1"`` in
+the recipe file to force a serial build.
+
+:oe:var:`MAKE_DESTDIR` usually contains the value ``DESTDIR=${D}``, and
+thus serves to ensure that the ``DESTDIR`` variable is defined
+appropriately.
