@@ -119,7 +119,7 @@ Something like
 
 .. code:: sh
 
-    ln -s $HOME/bin/oe ../src/bakery/oebakery/oe.py
+    ln -s ../src/bakery/oebakery/oe.py $HOME/bin/oe 
 
 (assuming you have the bakery source distribution in $HOME/src/bakery
 and have $HOME/bin in your $PATH)
