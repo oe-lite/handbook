@@ -416,6 +416,17 @@ the recipe file to force a serial build.
 thus serves to ensure that the ``DESTDIR`` variable is defined
 appropriately.
 
+.. _pkgconfig_class:
+
+pkgconfig
+---------
+
+Many autotools configure scripts rely on pkg-config to figure out the
+proper compiler/linker flags for various needed libraries (or to
+detect if those libraries are even present). To make sure pkg-config
+picks up libraries and headers from the staging area rather than the
+host, you should inherit the :oe:cls:`pkgconfig` class.
+
 .. _auto_package_libs_class:
 
 auto-package-libs
