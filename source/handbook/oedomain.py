@@ -29,4 +29,10 @@ def setup(app):
                 objname = "OE-lite Variable",
                 indextemplate = "pair: %s; OE-lite Variable"
             ),
+            # abbreviated because we can't use the Python reserved
+            # word "class" as a keyword argument, sigh
+            cls = dict(
+                objname = "OE-lite Class",
+                indextemplate = "pair: %s; OE-lite Class"
+            ),
         )))

@@ -491,3 +491,100 @@ recipe also implies a dependency on libmosquitto. One could add
 libstdc++ to the common dependency variable, but that would
 unnecessarily pollute the staging area for recipes that only depend on
 the C library.
+
+.. _auto_package_utils_class:
+
+auto-package-utils
+------------------
+
+A companion to the `auto_package_libs_class` class, the
+auto-package-utils class is useful for splitting utilities into
+separate packages. In principle, the usage is as simple as::
+
+  inherit auto-packages-utils
+  AUTO_PACKAGE_UTILS = "bzip2 bzdiff bzgrep bzip2recover bzmore"
+
+This example is from the bzip2 recipe. The above creates packages
+bzip2-X and bzip2-X-doc for each X in the ``AUTO_PACKAGE_UTILS``
+variable. The corresponding ``FILES_*`` automatically get sensible
+values, e.g. ::
+
+  FILES_bzip2-bzdiff = "/sbin/bzdiff /bin/bzdiff /usr/sbin/bzdiff /usr/bin/bzdiff /usr/libexec/bzdiff"
+  FILES_bzip2-bzdiff-doc = "/usr/share/man/man?/bzdiff.*"
+
+ensures that the bzdiff binary, whereever it might get installed, ends
+up in the bzip2-bzdiff package, and its documentation goes into
+bzip2-bzdiff-doc.
+
+There are also corresponding ``PROVIDES_*`` settings::
+
+  PROVIDES_bzip2-bzdiff = "util/bzdiff"
+
+The ``util/`` prefix is a convention used to designate »utilities«
+(anything executable) for dependency purposes. By default, a package
+provides an item with the same name as the package, so if one writes ::
+
+  RDEPENDS += "bzip2"
+
+one would get whatever got packaged in the main ``bzip2`` package,
+which doesn't necessarily (and in fact, not in this case) include the
+``bzip2`` binary. Hence if one needs the ``bzip2`` utility, one should
+spell it ::
+
+  RDEPENDS += "util/bzip2"
+
+That will make OE-lite find and stage the package which actually
+provides the ``bzip2`` binary, and other recipes do not need to know
+about how the bzip2 recipe is being split.
+
+Some utilities behave differently depending on how they are invoked
+(i.e., based on ``argv[0]``). This is typically implemented by making
+each of the alternate names a symlink to the main binary. Since these
+symlinks would be useless by themselves, it is better to package them
+together with the binary they point to. The
+:oe:cls:`auto-package-utils` class provides a simple mechanism for
+this: Set ``AUTO_PACKAGE_UTILS_SYMLINKS_foo`` to the list for
+alternate names for the ``foo`` utility. For example, in the bzip2
+recipe, we have::
+
+  AUTO_PACKAGE_UTILS_SYMLINKS_bzip2 = "bunzip2 bzcat"
+  AUTO_PACKAGE_UTILS_SYMLINKS_bzdiff = "bzcmp"
+  AUTO_PACKAGE_UTILS_SYMLINKS_bzgrep = "bzegrep bzfgrep"
+  AUTO_PACKAGE_UTILS_SYMLINKS_bzmore = "bzless"
+
+and the above ``FILES_*`` and ``PROVIDES_*`` were slightly lying;
+their real values are::
+
+  FILES_bzip2-bzdiff = "/sbin/bzdiff /bin/bzdiff /usr/sbin/bzdiff /usr/bin/bzdiff /usr/libexec/bzdiff /sbin/bzcmp /bin/bzcmp /usr/sbin/bzcmp /usr/bin/bzcmp /usr/libexec/bzcmp"
+  FILES_bzip2-bzdiff-doc = "/usr/share/man/man?/bzdiff.* /usr/share/man/man?/bzcmp.*"
+  PROVIDES_bzip2-bzdiff = "util/bzdiff util/bzcmp"
+
+Just as for auto-package-libs, one also needs to define the package
+dependencies for the packages created by the auto-package-utils class,
+and there are similar convenience variables for defining common
+dependencies:
+
+.. oe:var:: AUTO_PACKAGE_UTILS_DEPENDS
+
+   automatically added to each package build dependency DEPENDS_foo-X.
+
+.. oe:var:: AUTO_PACKAGE_UTILS_RDEPENDS
+
+   automatically added to each package run-time dependency variable RDEPENDS_foo-X.
+
+In the bzip2 case, all the utilities depend on the libbz2.so shared library, so we have::
+
+  AUTO_PACKAGE_UTILS_RDEPENDS = "libbz2"
+
+..
+  TODO: Document AUTO_PACKAGE_UTILS_PACKAGES and
+  AUTO_PACKAGE_UTILS_PROVIDES. They seem to be used for the same
+  purpose, namely making the main package (or an extra special-purpose
+  foo-utils package) RDEPEND on all the utilities. In practice,
+  there's probably no difference between
+
+  RDEPENDS_${PN} += "${AUTO_PACKAGE_UTILS_PROVIDES}"
+
+  and
+
+  RDEPENDS_${PN} += "${AUTO_PACKAGE_UTILS_PACKAGES}"
