@@ -298,7 +298,7 @@ first word of the name be the same as the recipe name.
 A USE flag example
 ~~~~~~~~~~~~~~~~~~
 
-An example from the `freetype` recipe::
+An example from the freetype recipe::
 
   RECIPE_FLAGS += "freetype_bzip2"
   EXTRA_OECONF += "${EXTRA_OECONF_BZIP2}"
@@ -599,3 +599,76 @@ In the bzip2 case, all the utilities depend on the libbz2.so shared library, so 
   and
 
   RDEPENDS_${PN} += "${AUTO_PACKAGE_UTILS_PACKAGES}"
+
+.. _kernel_class:
+
+kernel
+------
+
+Different boards have different requirements for how to build the
+Linux kernel and associated paraphernalia (device tree blob, modules,
+initramfs, ...). The kernel class provides the logic needed for a wide
+range of scenarios, but one of course still needs to define the
+various requirements.
+
+The first step in building a linux kernel is to configure it. The USE
+flag ``USE_kernel_defconfig`` can either name an in-tree defconfig
+target (e.g. ``bcm2835_defconfig``), or be set to the special value
+``file``. In the latter case, one is supposed to provide a
+configuration file in SRC_URI. The file ``${DEFCONFIG_FILE}`` is then
+be copied to ``.config`` and ``make olddefconfig`` is run to set
+config variables that were not defined in the provided file. The
+default value of ``${DEFCONFIG_FILE}`` is ``${SRCDIR}/defconfig``.
+
+Next, one may choose to include an initramfs image in the kernel image
+itself. To do that, set the USE flag ``USE_kernel_initramfs`` to
+``True``. The kernel config variable ``CONFIG_INITRAMFS_SOURCE``
+(determining the source(s) from which the initramfs is built) is set
+to the value of the variable ``${KERNEL_INITRAMFS}``, whose default
+value is ``${MACHINE_SYSROOT}${bootdir}/initramfs.cpio``.
+
+The USE flag ``USE_ramdisk_image_compression`` governs how the initrd
+image is compressed. Its default value is ``none``; other meaningful
+values are ``gzip``, ``lzma``, ``xz``.
+
+..
+  XXX: I'm not sure about that. We set CONFIG_INITRAMFS_COMPRESSION_*,
+  but those don't exist since 3.13 (more precisely 9ba4bcb64589). The
+  compression type seems to be determined from the CONFIG_RD_*
+  variables, and, from reading usr/Makefile, it seems that the last
+  defined among bz2, lzma, xz, lzo, lz4, gz wins, and they're all
+  "default y".
+
+Next, for compiling the kernel image itself, one chooses the generated
+image type via the USE flag ``USE_kernel_imagetype``, whose default
+value is ``zImage``. If one sets this to ``uImage``, one should also
+define the load address by setting the USE flag
+``USE_kernel_uimage_loadaddress``. The do_compile step compiles both
+the kernel image as well as all kernel modules (if CONFIG_MODULES is
+set, of course).
+
+..
+  It seems that there's also a boolean USE_kernel_uimage which, if
+  set, causes do_compile_kernel_uimage to be run. That function seems
+  to open-code more or less the same thing as the kernel's build
+  system does when one says "make uImage LOADADDR=...". There's also
+  obviously some copy-pasted logic between that function and
+  do_compile_kernel to determine a default LOADADDR/ENTRYPOINT, though
+  they're not completely equivalent. Since only kernel_imagetype is
+  documented, and no machine config I can find defined
+  USE_kernel_uimage, I'm going to ignore that USE flag and the
+  associated postfunc.
+
+  In do_compile_kernel, USE_kernel_uimage_loadaddress and
+  USE_kernel_uimage_entrypoint are equivalent, with the former having
+  precedence, so the latter is a redundant synonym, which is why I
+  don't mention it.
+
+Most embedded targets need a device tree blob. Unsurprisingly,
+configuring which device tree source is used (if any) and the device
+tree compiler to use is controlled by a number of USE flags. Setting
+``USE_kernel_dts`` to the name of an in-tree ``.dts`` file causes that
+file to be compiled; setting ``USE_kernel_dts`` to the special value
+"1" is equivalent to setting it to ``${MACHINE}.dts``. Alternatively,
+one can set ``USE_kernel_external_dtb`` to the name of an already
+compiled device tree blob which one provides via ``SRC_URI``.
