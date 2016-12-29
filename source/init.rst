@@ -58,9 +58,14 @@ A small OE-lite stack could look like this::
     OESTACK .= ";srcuri=git://oe-lite.org/urlgrabber.git"
     OESTACK .= ";pythonpath="
 
-The example above uses the two OE-lite append assignment operators "+="
-and ".=". The "+=" operator appends the a space and the value to the
-variable. The ".=" just appends the value to the variable.
+The example above uses two different append assignment operators: "+="
+and ".=". The "+=" operator adds an extra space before appending the value 
+whereas the ".=" operator just appends the value. The two expressions:
+
+    HELLO += "world"
+    HELLO .= " world"
+    
+are the same.
 
 The resulting ``OESTACK`` variable is thus a space separated list of
 layers. Each layer is specified by a path and a number of parameters,
