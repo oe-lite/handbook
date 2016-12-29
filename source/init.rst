@@ -27,7 +27,7 @@ Bakery.conf from scratch
 ------------------------
 
 The bakery.conf follows the OE-lite metadata syntax, or rather a subset
-of it. The primary purpose os to assign a value to the variable called
+of it. The primary purpose is to assign a value to the variable called
 ``OESTACK``, which defines the :term:`OE-lite stack`
 .
 
